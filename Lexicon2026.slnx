@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="../BethanysPieShopHRM/BethanysPieShopHRM.csproj" Id="d3770b9f-fe35-4e29-a09b-8fc6dd2933c8" />
-  <Project Path="../CSharpFundamentals/CSharpFundamentals.csproj" Id="b930b2ee-e3bb-4ca3-99ce-a693f5b3e688" />
-  <Project Path="Lexicon2026.csproj" />
+  <Project Path="BethanysPieShopHRM/BethanysPieShopHRM.csproj" />
+  <Project Path="LexiconTest1/LexiconTest1.csproj" />
+  <Project Path="Lexicon_Core/Lexicon2026.csproj" />
 </Solution>
