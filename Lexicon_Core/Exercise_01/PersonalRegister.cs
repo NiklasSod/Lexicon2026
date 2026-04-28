@@ -22,7 +22,7 @@ namespace Lexicon2026.Exercise_01
         {
             Console.WriteLine("Welcome to Restaurant Restaurontos personal register.");
 
-            // add list
+            List<(string Name, int Salary)> employeeList = new List<(string, int)>();
 
             while (true) // console is not closed by user
             {
@@ -35,29 +35,21 @@ namespace Lexicon2026.Exercise_01
                 switch(userChoice)
                 {
                     case 1:
-                        Console.WriteLine("What is the name of the person?");
-                        string? inputName = Console.ReadLine();
-                        while (string.IsNullOrWhiteSpace(inputName))
-                        {
-                            Console.WriteLine("Name cannot be empty, enter name again:");
-                            inputName = Console.ReadLine();
-                        }
-
-                        Console.WriteLine("What salary will they recieve?");
-                        string? inputSalary = Console.ReadLine();
-                        int salary = UserInput(inputSalary);
-                        while (salary <= 0)
-                        {
-                            Console.WriteLine("Incorrect, enter salary again:");
-                            salary = UserInput(Console.ReadLine());
-                        };
-                        Console.WriteLine("New employee added!");
-                        Console.WriteLine();
-
-                        // add to list { name, salary }
+                        (string Name, int Salary) newEmployee = AddEmployee();
+                        employeeList.Add(newEmployee);
                         break;
                     case 2:
-                        // todo show table
+                        if (employeeList.Count <= 0)
+                        {
+                            Console.WriteLine("No workers yet!");
+                            break;
+                        }
+                        for (int i = 0; i < employeeList.Count; i++)
+                        {
+                            Console.WriteLine($"{employeeList[i].Name} - {employeeList[i].Salary}");
+                        }
+                        Console.WriteLine();
+                        break;
                     default:
                         Console.WriteLine("Invalid input. Please enter 1 or 2.");
                         break;
@@ -70,6 +62,31 @@ namespace Lexicon2026.Exercise_01
             if (input is null) return 0;
             if (!int.TryParse(input, out int userChoice)) return 0;
             return int.Parse(input);
+        }
+
+        public static (string Name, int Salary) AddEmployee()
+        {
+            Console.WriteLine("What is the name of the person?");
+            string? inputName = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(inputName))
+            {
+                Console.WriteLine("Name cannot be empty, enter name again:");
+                inputName = Console.ReadLine();
+            }
+
+            Console.WriteLine("What salary will they recieve?");
+            string? inputSalary = Console.ReadLine();
+            int salary = UserInput(inputSalary);
+            while (salary <= 0)
+            {
+                Console.WriteLine("Incorrect, enter salary again:");
+                salary = UserInput(Console.ReadLine());
+            }
+            ;
+            Console.WriteLine("New employee added!");
+            Console.WriteLine();
+
+            return (inputName, salary);
         }
     }
 }
