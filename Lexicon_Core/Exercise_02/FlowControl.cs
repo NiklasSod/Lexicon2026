@@ -30,6 +30,9 @@ namespace Lexicon2026.Exercise_02
                         BookingMenu();
                         break;
                     case 2:
+                        BookingManyMenu();
+                        break;
+                    case 3:
                         ViewList();
                         break;
                     default:
@@ -48,7 +51,8 @@ namespace Lexicon2026.Exercise_02
             Console.WriteLine("Press:");
             Console.WriteLine("Enter 0 - to exit");
             Console.WriteLine("Enter 1 - Book a ticket");
-            Console.WriteLine("Enter 2 - Check your booking");
+            Console.WriteLine("Enter 2 - Book many tickets");
+            Console.WriteLine("Enter 3 - Check your booking");
             string? input = Console.ReadLine();
 
             return UserInput(input);
@@ -92,22 +96,46 @@ namespace Lexicon2026.Exercise_02
                 return;
             }
             Console.WriteLine($"\nA {TicketType(newPerson.Age)} is now booked for {newPerson.Name}");
-            Console.WriteLine("Press any key to return to the main menu");
+            Console.WriteLine("Press any key to continue");
             Console.ReadKey(true);
             bookingList.Add(newPerson);
         }
 
+        private static void BookingManyMenu()
+        {
+            Console.WriteLine("How many people do you want to book (between 2 and 10)?");
+            int userChoice = UserInput(Console.ReadLine());
+            if (userChoice < 2 || userChoice > 10)
+            {
+                Console.WriteLine("\nCancelling... incorrect input. Press any key to return to the main menu");
+                Console.ReadKey(true);
+                return;
+            }
+            for (int i = 0; i < userChoice; i++)
+            {
+                BookingMenu();
+            }
+        }
+
         private static void ViewList()
         {
-            int totalPrice = 0;
-            foreach (Person person in bookingList) {
-                var ticket = TicketType(person.Age);
-                totalPrice += TotalPrice(person.Age);
-                Console.WriteLine($"\nName: {person.Name}\nAge: {person.Age.ToString()}\nPrice: {char.ToUpper(ticket[0]) + ticket.Substring(1)}");
+            if (bookingList.Count == 0)
+            {
+                Console.WriteLine("\nList is empty");
+                Console.WriteLine("Press anything to return to the main menu");
+                Console.ReadKey(true);
+            } else
+            {
+                int totalPrice = 0;
+                foreach (Person person in bookingList) {
+                    var ticket = TicketType(person.Age);
+                    totalPrice += TotalPrice(person.Age);
+                    Console.WriteLine($"\nName: {person.Name}\nAge: {person.Age.ToString()}\nPrice: {char.ToUpper(ticket[0]) + ticket.Substring(1)}");
+                }
+                Console.WriteLine($"\nTotal price: {totalPrice}");
+                Console.WriteLine("Press anything to return to the main menu");
+                Console.ReadKey(true);
             }
-            Console.WriteLine($"\nTotal price: {totalPrice}");
-            Console.WriteLine("Press anything to return to the main menu");
-            Console.ReadKey(true);
         }
 
         private static void ErrorMessage(string? text = null)
