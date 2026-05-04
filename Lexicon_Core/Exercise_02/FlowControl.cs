@@ -78,6 +78,15 @@ namespace Lexicon2026.Exercise_02
                 name = Console.ReadLine();
             }
             newPerson.Name = name;
+            Console.WriteLine($"\nA {TicketType(newPerson.Age)} will be booked for {newPerson.Name}, is this ok?");
+            Console.WriteLine("Press 0 to Exit or 1 to approve");
+            int userChoice = UserInput(Console.ReadLine());
+            if (userChoice == 0)
+            {
+                Console.WriteLine("\nCancelling... Press any key to return to the main menu");
+                Console.ReadKey(true);
+                return;
+            }
             Console.WriteLine($"\nA {TicketType(newPerson.Age)} is now booked for {newPerson.Name}");
             Console.WriteLine("Press any key to return to the main menu");
             Console.ReadKey(true);
@@ -91,9 +100,9 @@ namespace Lexicon2026.Exercise_02
 
         private static string TicketType(int age)
         {
-            if (age < 20) return "youth ticket";
-            if (age > 64) return "pensioner ticket";
-            return "ticket";
+            if (age < 20) return "youth ticket - 80 sek";
+            if (age > 64) return "pensioner ticket - 90 sek";
+            return "standard ticket - 120 sek";
         }
 
         public static int UserInput(string? input)
