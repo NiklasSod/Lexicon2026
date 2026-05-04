@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Lexicon2026.Exercise_02
 {
@@ -35,6 +36,9 @@ namespace Lexicon2026.Exercise_02
                     case 3:
                         ViewList();
                         break;
+                    case 4:
+                        RepeatTheUser();
+                        break;
                     default:
                         ErrorMessage("Incorrect input, press enter to try again.");
                         Console.ReadLine();
@@ -53,6 +57,8 @@ namespace Lexicon2026.Exercise_02
             Console.WriteLine("Enter 1 - Book a ticket");
             Console.WriteLine("Enter 2 - Book many tickets");
             Console.WriteLine("Enter 3 - Check your booking");
+            Console.WriteLine("---");
+            Console.WriteLine("Enter 4 - Repeat");
             string? input = Console.ReadLine();
 
             return UserInput(input);
@@ -162,6 +168,22 @@ namespace Lexicon2026.Exercise_02
             if (string.IsNullOrWhiteSpace(input)) return -1;
             if (!int.TryParse(input, out int userChoice)) return -1;
             return userChoice;
+        }
+
+        private static void RepeatTheUser()
+        {
+            Console.WriteLine("Write something, anything!");
+            string? anything = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(anything))
+            {
+                Console.WriteLine("You cannot write nothing, try again");
+                anything = Console.ReadLine();
+            }
+            for (int i = 0; i < 10; i++) {
+                Console.Write($"{anything} ");
+            }
+            Console.WriteLine("\nVery cool - Press any key to return to main window");
+            Console.ReadKey(true);
         }
     }
 }
