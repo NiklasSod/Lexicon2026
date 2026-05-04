@@ -39,6 +39,9 @@ namespace Lexicon2026.Exercise_02
                     case 4:
                         RepeatTheUser();
                         break;
+                    case 5:
+                        TheThirdWord();
+                        break;
                     default:
                         ErrorMessage("Incorrect input, press enter to try again.");
                         Console.ReadLine();
@@ -59,6 +62,7 @@ namespace Lexicon2026.Exercise_02
             Console.WriteLine("Enter 3 - Check your booking");
             Console.WriteLine("---");
             Console.WriteLine("Enter 4 - Repeat");
+            Console.WriteLine("Enter 5 - The third word");
             string? input = Console.ReadLine();
 
             return UserInput(input);
@@ -172,7 +176,7 @@ namespace Lexicon2026.Exercise_02
 
         private static void RepeatTheUser()
         {
-            Console.WriteLine("Write something, anything!");
+            Console.WriteLine("\nWrite something, anything!");
             string? anything = Console.ReadLine();
             while (string.IsNullOrWhiteSpace(anything))
             {
@@ -184,6 +188,29 @@ namespace Lexicon2026.Exercise_02
             }
             Console.WriteLine("\nVery cool - Press any key to return to main window");
             Console.ReadKey(true);
+        }
+
+        private static void TheThirdWord()
+        {
+            Console.WriteLine("\nWrite a sentence, at least three words long");
+            var sentence = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(sentence))
+            {
+                Console.WriteLine("Try again");
+                sentence = Console.ReadLine();
+            }
+            if (sentence.Split(" ").Length < 3)
+            {
+                Console.WriteLine("\nError - returning you to the main menu");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey(true);
+                return;
+            }
+            string thirdWord = sentence.Split(" ")[2];
+            Console.WriteLine($"\nNice,thanks! The third word in that sentence was: {thirdWord}");
+            Console.WriteLine("Press any key to continue to main menu");
+            Console.ReadKey(true);
+
         }
     }
 }
