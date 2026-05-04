@@ -8,15 +8,40 @@ namespace Lexicon2026.Exercise_02
     {
         public static void Main()
         {
-            // user menu
+            while (true)
+            {
+                int userChoice = UserMenu();
 
-            // wrap the rest in in while(true)
-
-            // switch case with 2 cases (for now)
-            // 0 to close program
-            // default for handling incorrect inputs
+                switch (userChoice)
+                {
+                    case 0:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Incorrect input, press enter to try again.");
+                        Console.ReadLine();
+                        break;
+                }
+            }
         }
 
-        // other methods are ok like UserMenu()
+        private static int UserMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Welcome to the main menu");
+            Console.WriteLine("- Cinema Paradiso -");
+            Console.WriteLine("Press:");
+            Console.WriteLine("Enter 0 - to exit");
+            string? input = Console.ReadLine();
+
+            return UserInput(input);
+        }
+
+        public static int UserInput(string? input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return -1;
+            if (!int.TryParse(input, out int userChoice)) return -1;
+            return userChoice;
+        }
     }
 }
