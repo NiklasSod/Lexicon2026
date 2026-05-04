@@ -29,6 +29,9 @@ namespace Lexicon2026.Exercise_02
                     case 1:
                         BookingMenu();
                         break;
+                    case 2:
+                        ViewList();
+                        break;
                     default:
                         ErrorMessage("Incorrect input, press enter to try again.");
                         Console.ReadLine();
@@ -45,6 +48,7 @@ namespace Lexicon2026.Exercise_02
             Console.WriteLine("Press:");
             Console.WriteLine("Enter 0 - to exit");
             Console.WriteLine("Enter 1 - Book a ticket");
+            Console.WriteLine("Enter 2 - Check your booking");
             string? input = Console.ReadLine();
 
             return UserInput(input);
@@ -93,9 +97,29 @@ namespace Lexicon2026.Exercise_02
             bookingList.Add(newPerson);
         }
 
+        private static void ViewList()
+        {
+            int totalPrice = 0;
+            foreach (Person person in bookingList) {
+                var ticket = TicketType(person.Age);
+                totalPrice += TotalPrice(person.Age);
+                Console.WriteLine($"\nName: {person.Name}\nAge: {person.Age.ToString()}\nPrice: {char.ToUpper(ticket[0]) + ticket.Substring(1)}");
+            }
+            Console.WriteLine($"\nTotal price: {totalPrice}");
+            Console.WriteLine("Press anything to return to the main menu");
+            Console.ReadKey(true);
+        }
+
         private static void ErrorMessage(string? text = null)
         {
             Console.WriteLine(text);
+        }
+
+        public static int TotalPrice(int age)
+        {
+            if (age < 20) return 80;
+            if (age > 64) return 90;
+            return 120;
         }
 
         private static string TicketType(int age)
