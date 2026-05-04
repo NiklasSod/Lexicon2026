@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Lexicon2026.Exercise_02
@@ -203,14 +204,15 @@ namespace Lexicon2026.Exercise_02
                 Console.WriteLine("Try again");
                 sentence = Console.ReadLine();
             }
-            if (sentence.Split(" ").Length < 3)
+            string result = Regex.Replace(sentence, @"\s+", " ");
+            if (result.Split(" ").Length < 3)
             {
                 Console.WriteLine("\nError - returning you to the main menu");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey(true);
                 return;
             }
-            string thirdWord = sentence.Split(" ")[2];
+            string thirdWord = result.Split(" ")[2];
             Console.WriteLine($"\nNice,thanks! The third word in that sentence was: {thirdWord}");
             Console.WriteLine("Press any key to continue to main menu");
             Console.ReadKey(true);
