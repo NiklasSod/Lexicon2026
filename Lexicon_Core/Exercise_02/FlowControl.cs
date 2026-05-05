@@ -91,7 +91,7 @@ namespace Lexicon2026.Exercise_02
                 name = Console.ReadLine();
             }
             newPerson.Name = name;
-            Console.WriteLine($"\nA {TicketType(newPerson.Age)} will be booked for {newPerson.Name}, is this ok?");
+            Console.WriteLine($"\nA {TicketCalculator.TicketType(newPerson.Age)} will be booked for {newPerson.Name}, is this ok?");
             Console.WriteLine("Press 0 to Exit or 1 to approve");
             int userChoice = UserInput(Console.ReadLine());
             if (userChoice == 0)
@@ -100,7 +100,7 @@ namespace Lexicon2026.Exercise_02
                 Console.ReadKey(true);
                 return;
             }
-            Console.WriteLine($"\nA {TicketType(newPerson.Age)} is now booked for {newPerson.Name}");
+            Console.WriteLine($"\nA {TicketCalculator.TicketType(newPerson.Age)} is now booked for {newPerson.Name}");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey(true);
             bookingList.Add(newPerson);
@@ -133,8 +133,8 @@ namespace Lexicon2026.Exercise_02
             {
                 int totalPrice = 0;
                 foreach (Person person in bookingList) {
-                    var ticket = TicketType(person.Age);
-                    totalPrice += TotalPrice(person.Age);
+                    var ticket = TicketCalculator.TicketType(person.Age);
+                    totalPrice += TicketCalculator.TotalPrice(person.Age);
                     Console.WriteLine($"\nName: {person.Name}\nAge: {person.Age.ToString()}\nPrice: {char.ToUpper(ticket[0]) + ticket.Substring(1)}");
                 }
                 Console.WriteLine($"\nTotal price: {totalPrice}");
@@ -146,24 +146,6 @@ namespace Lexicon2026.Exercise_02
         private static void ErrorMessage(string? text = null)
         {
             Console.WriteLine(text);
-        }
-
-        public static int TotalPrice(int age)
-        {
-            if (age < 5) return 0;
-            if (age < 20) return 80;
-            if (age > 100) return 0;
-            if (age > 64) return 90;
-            return 120;
-        }
-
-        private static string TicketType(int age)
-        {
-            if (age < 5) return "free ticket - 0 sek";
-            if (age < 20) return "youth ticket - 80 sek";
-            if (age > 100) return "free ticket - 0 sek";
-            if (age > 64) return "pensioner ticket - 90 sek";
-            return "standard ticket - 120 sek";
         }
 
         public static int UserInput(string? input)
