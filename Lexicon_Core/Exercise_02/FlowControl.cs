@@ -8,12 +8,6 @@ namespace Lexicon2026.Exercise_02
 {
     internal class FlowControl
     {
-        public class Person
-        {
-            public string? Name { get; set; }
-            public int Age { get; set; }
-        }
-
         private static List<Person> bookingList = new List<Person>();
 
         public static void Main()
