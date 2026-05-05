@@ -3,7 +3,6 @@
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
   </Folder>
-  <Project Path="BethanysPieShopHRM/BethanysPieShopHRM.csproj" />
-  <Project Path="LexiconTest1/LexiconTest1.csproj" />
+  <Project Path="LexiconTest1/Kattis.csproj" />
   <Project Path="Lexicon_Core/Lexicon2026.csproj" />
 </Solution>
