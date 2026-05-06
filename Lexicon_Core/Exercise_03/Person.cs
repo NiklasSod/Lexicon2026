@@ -16,6 +16,24 @@ namespace Lexicon2026.Exercise_03
 
         public Person(string firstName, string lastName, int age, decimal salary)
         {
+            List<string> errorMessages = new List<string> { };
+            if (firstName.Length < 3) { 
+                errorMessages.Add("First name cannot contain fewer than 3 symbols! ");
+            }
+            if (lastName.Length < 3)
+            {
+                errorMessages.Add("Last name cannot contain fewer than 3 symbols! ");
+            }
+            if (age <= 0)
+            {
+                errorMessages.Add("Age cannot be zero or negative integer! ");
+            }
+            if (salary < 460.0m)
+            {
+                errorMessages.Add("Salary can't be less than 460 dollar!");
+            }
+            if (errorMessages.Count > 0) throw new ArgumentException(string.Join("", errorMessages));
+
             _firstName = firstName;
             _lastName = lastName;
             _age = age;
