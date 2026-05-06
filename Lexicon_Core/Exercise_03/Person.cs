@@ -54,7 +54,13 @@ namespace Lexicon2026.Exercise_03
 
         public void IncreaseSalary(decimal percentage)
         {
-            _salary *= (1 + percentage / 100);
+            if (Age < 30)
+            {
+                _salary *= (1 + (percentage / 2) / 100);
+            } else
+            {
+                _salary *= (1 + percentage / 100);
+            }
         }
     }
 }

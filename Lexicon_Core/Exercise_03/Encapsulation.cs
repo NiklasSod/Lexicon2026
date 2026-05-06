@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Lexicon2026.Exercise_03
@@ -37,7 +38,7 @@ namespace Lexicon2026.Exercise_03
                     var person = new Person(cmdArgs[0],
                     cmdArgs[1],
                     int.Parse(cmdArgs[2]),
-                    decimal.Parse(cmdArgs[3]));
+                    decimal.Parse(cmdArgs[3], CultureInfo.InvariantCulture));
                     persons.Add(person);
                 } catch (Exception ex)
                 {
