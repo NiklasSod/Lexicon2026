@@ -5,4 +5,5 @@
   </Folder>
   <Project Path="LexiconTest1/Kattis.csproj" />
   <Project Path="Lexicon_Core/Lexicon2026.csproj" />
+  <Project Path="UnitTests/UnitTests.csproj" Id="262b8510-3146-4547-92db-150325c809bb" />
 </Solution>

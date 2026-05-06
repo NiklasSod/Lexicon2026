@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lexicon2026.Exercise_02
 {
-    internal class TicketCalculator
+    public class TicketCalculator
     {
         public static int TotalPrice(int age)
         {
