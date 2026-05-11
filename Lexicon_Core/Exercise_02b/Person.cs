@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lexicon2026.Exercise_03
+namespace Lexicon2026.Exercise_02b
 {
     public class Person
     {

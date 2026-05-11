@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lexicon2026.Exercise_04
+namespace Lexicon2026.Exercise_03
 {
     // an airplane takes up as much space (a spot) as a car
     internal class Garage
@@ -14,11 +14,14 @@ namespace Lexicon2026.Exercise_04
             vehicles = new Vehicle[capacity];
         }
 
+        // method to add vehicle + feedback to user
+        public void ParkVehicle(Vehicle vehicle) {
+            // add a vehicle
+        }
+
         // method to view all vehicle
 
         // method to view vehicle type and amount
-
-        // method to add vehicle + feedback to user
 
         // method to remove vehicle + feedback to user
 

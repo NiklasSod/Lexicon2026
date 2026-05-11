@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lexicon2026.Exercise_04
+namespace Lexicon2026.Exercise_03
 {
     internal class Vehicle
     {

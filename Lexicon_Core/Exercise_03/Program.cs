@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 
-namespace Lexicon2026.Exercise_04
+namespace Lexicon2026.Exercise_03
 {
     public class Program
     {
@@ -62,7 +62,9 @@ namespace Lexicon2026.Exercise_04
             switch (userInput)
             {
                 case 1:
-                    // do stuff
+                    string vehicleType = UserVehicle();
+                    //string[] vehicleData = UserVehicleData();
+                    //Garage.ParkVehicle();
                     break;
                 case 2:
                     // do stuff
@@ -73,6 +75,35 @@ namespace Lexicon2026.Exercise_04
                 default:
                     // exit program
                     break;
+            }
+        }
+
+        private static string UserVehicle()
+        {
+            Console.Clear();
+            Console.WriteLine("What vehicle type do you park?\n");
+            Console.WriteLine("1: Car");
+            Console.WriteLine("2: Airplane");
+            Console.WriteLine("3: Bicycle");
+            // more types
+            int userInput;
+            while (true)
+            {
+                string? number = Console.ReadLine();
+                if (!int.TryParse(number, out userInput))
+                {
+                    Console.WriteLine("Invalid number, Choose a number between 1 and X:"); // X
+                    continue;
+                }
+                if (userInput < 1 || userInput > 3) // update 3 
+                {
+                    Console.WriteLine("Choose a number between 1 and X:"); // X
+                    continue;
+                }
+                if (userInput == 1) return "Car";
+                if (userInput == 2) return "Airplane";
+                if (userInput == 3) return "Bicycle";
+                // more types return
             }
         }
     }
