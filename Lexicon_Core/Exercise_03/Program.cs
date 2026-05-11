@@ -15,8 +15,24 @@ namespace Lexicon2026.Exercise_03
 
         public static void Main()
         {
-            int garageSize = GarageSize();
-            garage = new Garage(garageSize);
+            GarageStart();
+        }
+
+        private static void GarageStart()
+        {
+            Console.WriteLine("Do you want to build a garage or come to a half full one with 10 free spots left?");
+            Console.WriteLine("1: I build it from scratch!");
+            Console.WriteLine("2: Let me see the existing one.");
+            int userChoice = InputHandler.GetValidatedNumber(1, 2, "Invalid input, Choose a number between 1 and 2:");
+            Console.Clear();
+            if (userChoice == 1)
+            {
+                int garageSize = GarageSize();
+                garage = new Garage(garageSize);
+            } else {
+                garage = new Garage(20);
+                garage.ParkabGarage();
+            }
             GarageUI();
         }
 

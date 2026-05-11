@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Lexicon2026.Exercise_03.VehicleTypes;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Drawing;
 using System.Text;
 
 namespace Lexicon2026.Exercise_03
@@ -73,6 +76,111 @@ namespace Lexicon2026.Exercise_03
             }
             Console.WriteLine("Vehicle not found.");
             return false;
+        }
+
+        public void ParkabGarage()
+        {
+            Vehicle[] startingVehicles =
+            {
+                new Bicycle
+                {
+                    RegistrationNumber = "CR56472",
+                    Color = "Red",
+                    Wheels = 2,
+                    Doors = 0,
+                    PackageHolder = false,
+                },
+                new Car
+                {
+                    RegistrationNumber = "HEJ745",
+                    Color = "Grey",
+                    Wheels = 4,
+                    Doors = 4,
+                    HorsePower = 120,
+                },
+                new Airplane
+                {
+                    RegistrationNumber = "PLN123",
+                    Color = "White",
+                    Wheels = 3,
+                    Doors = 6,
+                    MaxSpeed = 1200,
+                },
+                new Boat
+                {
+                    RegistrationNumber = "BOT456",
+                    Color = "Blue",
+                    Wheels = 0,
+                    Doors = 2,
+                    Length = 4.80,
+                },
+                new Bicycle
+                {
+                    RegistrationNumber = "BI73389",
+                    Color = "Red",
+                    Wheels = 2,
+                    Doors = 0,
+                    PackageHolder = true,
+                },
+                new Car
+                {
+                    RegistrationNumber = "JAN719",
+                    Color = "Pink",
+                    Wheels = 4,
+                    Doors = 2,
+                    HorsePower = 72,
+                },
+                new Motorcycle
+                {
+                    RegistrationNumber = "MOTO789",
+                    Color = "Black",
+                    Wheels = 2,
+                    Doors = 0,
+                    CylinderVolume = 250,
+                },
+                new Bus
+                {
+                    RegistrationNumber = "SL0001",
+                    Color = "Green",
+                    Wheels = 8,
+                    Doors = 3,
+                    Seats = 48
+                },
+                new Car
+                {
+                    RegistrationNumber = "COOLAST",
+                    Color = "Purple",
+                    Wheels = 4,
+                    Doors = 2,
+                    HorsePower = 272,
+                },
+                new Motorcycle
+                {
+                    RegistrationNumber = "TUR6789",
+                    Color = "White",
+                    Wheels = 2,
+                    Doors = 0,
+                    CylinderVolume = 250,
+                },
+            };
+
+            foreach (Vehicle vehicle in startingVehicles)
+            {
+                AddVehicle(vehicle);
+            }
+
+        }
+
+        private void AddVehicle(Vehicle vehicle)
+        {
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if (vehicles[i] == null)
+                {
+                    vehicles[i] = vehicle;
+                    return;
+                }
+            }
         }
 
         // TODO method? lookup on vehicles with one or more filters, ex: all black vehicles with four tires
