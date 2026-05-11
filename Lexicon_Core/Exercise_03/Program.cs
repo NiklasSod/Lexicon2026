@@ -72,10 +72,11 @@ namespace Lexicon2026.Exercise_03
                     GarageUI();
                     break;
                 case 2:
-                    // do stuff
+                    getOneVehicle();
+                    GarageUI();
                     break;
                 case 3:
-                    filterVehicles();
+                    checkVehicles();
                     GarageUI();
                     break;
                 default:
@@ -91,18 +92,18 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("1: Car");
             Console.WriteLine("2: Airplane");
             Console.WriteLine("3: Bicycle");
-            // add more types?
+            int max = 3;
             while (true)
             {
                 string? number = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(number) || !int.TryParse(number, out int userInput))
                 {
-                    Console.WriteLine("Invalid number, Choose a number between 1 and 3:"); // X = 3 for now
+                    Console.WriteLine($"Invalid number, Choose a number between 1 and {max}:");
                     continue;
                 }
-                if (userInput < 1 || userInput > 3) // update 3 if adding more
+                if (userInput < 1 || userInput > max)
                 {
-                    Console.WriteLine("Choose a number between 1 and 3:"); // X = 3 for now
+                    Console.WriteLine($"Choose a number between 1 and {max}:");
                     continue;
                 }
                 if (userInput == 1) return "Car";
@@ -259,7 +260,7 @@ namespace Lexicon2026.Exercise_03
             return bicycle;
         }
 
-        private static void filterVehicles()
+        private static void checkVehicles()
         {
             Console.Clear();
             Vehicle[] vehicles = garage.GetVehicles();
@@ -302,6 +303,36 @@ namespace Lexicon2026.Exercise_03
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
+        }
+
+        private static void getOneVehicle()
+        {
+            Console.Clear();
+            Vehicle[] vehicles = garage.GetVehicles();
+            Console.WriteLine("Whats the registration number?");
+            string? registrationNumber;
+            while (true)
+            {
+                string? input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Invalid registration number, try again");
+                    continue;
+                }
+                registrationNumber = input;
+                if (registrationNumber.Length < 6)
+                {
+                    Console.WriteLine("Invalid registration number, at least 6 characters, try again");
+                    continue;
+                }
+                break;
+            }
+            bool removedVehicle = garage.TakeVehicles(registrationNumber);
+            if (removedVehicle)
+            {
+                Console.WriteLine("Here is your vehicle! Press any key");
+                Console.ReadKey();
+            }
         }
     }
 }

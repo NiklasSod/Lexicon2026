@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Lexicon2026.Exercise_03
 {
-    // an airplane takes up as much space (a spot) as a car
     internal class Garage
     {
-        private readonly Vehicle[] vehicles;
+        private readonly Vehicle?[] vehicles;
 
         public Garage(int capacity)
         {
@@ -37,15 +36,25 @@ namespace Lexicon2026.Exercise_03
             return vehicles;
         }
 
-        // method to view vehicle type and amount
+        public bool TakeVehicles(string registrationNumber)
+        {
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if (vehicles[i] != null &&
+                    vehicles[i].RegistrationNumber.ToLower() == registrationNumber.ToLower())
+                {
+                    vehicles[i] = null;
 
-        // method to remove vehicle + feedback to user
-
-        // method search registration nr 
-        // check user input .ToLower
+                    Console.WriteLine("\nVehicle removed from garage.");
+                    return true;
+                }
+            }
+            Console.WriteLine("Vehicle not found.");
+            return false;
+        }
 
         // method? lookup on vehicles with one or more filters, ex: all black vehicles with four tires
 
-        // user can close the program in a good way
+        // method to view vehicle type and amount
     }
 }
