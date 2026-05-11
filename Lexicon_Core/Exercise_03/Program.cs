@@ -76,7 +76,7 @@ namespace Lexicon2026.Exercise_03
                     GarageUI();
                     break;
                 case 3:
-                    checkVehicles();
+                    CheckVehicles();
                     GarageUI();
                     break;
                 default:
@@ -130,6 +130,11 @@ namespace Lexicon2026.Exercise_03
                     Console.WriteLine("Invalid registration number, at least 6 characters, try again");
                     continue;
                 }
+                if (garage.CheckUniqueRegNo(registrationNumber))
+                {
+                    Console.WriteLine("Registration number already in garage!");
+                    continue;
+                }
                 break;
             }
 
@@ -178,7 +183,7 @@ namespace Lexicon2026.Exercise_03
             throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
         }
 
-        private static Vehicle CarData(string registrationNumber, string color, int doors) {
+        private static Car CarData(string registrationNumber, string color, int doors) {
             int horsePower;
             Console.WriteLine("How many horsepowers does the car have?");
             while (true)
@@ -203,7 +208,7 @@ namespace Lexicon2026.Exercise_03
             return car;
         }
 
-        private static Vehicle AirplaneData(string registrationNumber, string color, int doors)
+        private static Airplane AirplaneData(string registrationNumber, string color, int doors)
         {
             int maxSpeed;
             Console.WriteLine("What is the max speed of this airplane in kilometers?");
@@ -229,7 +234,7 @@ namespace Lexicon2026.Exercise_03
             return airplane;
         }
 
-        private static Vehicle BicycleData(string registrationNumber, string color, int doors)
+        private static Bicycle BicycleData(string registrationNumber, string color, int doors)
         {
             bool packageHolder;
             Console.WriteLine("Does your bicycle have a package holder?");
@@ -260,13 +265,13 @@ namespace Lexicon2026.Exercise_03
             return bicycle;
         }
 
-        private static void checkVehicles()
+        private static void CheckVehicles()
         {
             Console.Clear();
-            Vehicle[] vehicles = garage.GetVehicles();
+            Vehicle?[] vehicles = garage.GetVehicles();
             bool empty = true;
 
-            foreach (Vehicle vehicle in vehicles)
+            foreach (Vehicle? vehicle in vehicles)
             {
                 if (vehicle != null)
                 {
@@ -308,7 +313,7 @@ namespace Lexicon2026.Exercise_03
         private static void getOneVehicle()
         {
             Console.Clear();
-            Vehicle[] vehicles = garage.GetVehicles();
+            Vehicle?[] vehicles = garage.GetVehicles();
             Console.WriteLine("Whats the registration number?");
             string? registrationNumber;
             while (true)

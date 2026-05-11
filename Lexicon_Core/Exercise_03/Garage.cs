@@ -4,14 +4,9 @@ using System.Text;
 
 namespace Lexicon2026.Exercise_03
 {
-    internal class Garage
+    internal class Garage(int capacity)
     {
-        private readonly Vehicle?[] vehicles;
-
-        public Garage(int capacity)
-        {
-            vehicles = new Vehicle[capacity];
-        }
+        private readonly Vehicle?[] vehicles = new Vehicle[capacity];
 
         public void ParkVehicle(Vehicle vehicle)
         {
@@ -31,17 +26,32 @@ namespace Lexicon2026.Exercise_03
             Console.ReadKey();
         }
 
-        public Vehicle[] GetVehicles()
+        public Vehicle?[] GetVehicles()
         {
             return vehicles;
+        }
+
+        public bool CheckUniqueRegNo(string registrationNumber)
+        {
+            foreach (Vehicle? vehicle in vehicles) {
+                if (vehicle != null && vehicle.RegistrationNumber.Equals(
+                    registrationNumber,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool TakeVehicles(string registrationNumber)
         {
             for (int i = 0; i < vehicles.Length; i++)
             {
-                if (vehicles[i] != null &&
-                    vehicles[i].RegistrationNumber.ToLower() == registrationNumber.ToLower())
+                Vehicle? vehicle = vehicles[i];
+                if (vehicle != null && vehicle.RegistrationNumber.Equals(
+                    registrationNumber,
+                    StringComparison.OrdinalIgnoreCase))
                 {
                     vehicles[i] = null;
 
@@ -53,8 +63,8 @@ namespace Lexicon2026.Exercise_03
             return false;
         }
 
-        // method? lookup on vehicles with one or more filters, ex: all black vehicles with four tires
+        // TODO method? lookup on vehicles with one or more filters, ex: all black vehicles with four tires
 
-        // method to view vehicle type and amount
+        // TODO method to view vehicle type and amount
     }
 }
