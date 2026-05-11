@@ -113,17 +113,6 @@ namespace Lexicon2026.Exercise_03
 
         private static Vehicle UserVehicleData(string vehicleType)
         {
-            if (vehicleType == "Car")
-            {
-                return CarData();
-            }
-
-            // If other vehicle types are added later, handle them here.
-
-            throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
-        }
-
-        private static Vehicle CarData() {
             string registrationNumber;
             Console.WriteLine("What is the registration number?");
             while (true)
@@ -144,7 +133,7 @@ namespace Lexicon2026.Exercise_03
             }
 
             string color;
-            Console.WriteLine("What color does the car have?");
+            Console.WriteLine("What color does the vehicle have?");
             while (true)
             {
                 string? inputColor = Console.ReadLine();
@@ -158,7 +147,7 @@ namespace Lexicon2026.Exercise_03
             }
 
             int doors;
-            Console.WriteLine("How many doors does the car have?");
+            Console.WriteLine("Does the vehicle have doors, how many?");
             while (true)
             {
                 string? inputDoors = Console.ReadLine();
@@ -170,6 +159,25 @@ namespace Lexicon2026.Exercise_03
                 break;
             }
 
+            if (vehicleType == "Car")
+            {
+                return CarData(registrationNumber, color, doors);
+            }
+
+            if (vehicleType == "Airplane")
+            {
+                return AirplaneData(registrationNumber, color, doors);
+            }
+
+            if (vehicleType == "Bicycle")
+            {
+                return BicycleData(registrationNumber, color, doors);
+            }
+
+            throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
+        }
+
+        private static Vehicle CarData(string registrationNumber, string color, int doors) {
             int horsePower;
             Console.WriteLine("How many horsepowers does the car have?");
             while (true)
@@ -194,16 +202,67 @@ namespace Lexicon2026.Exercise_03
             return car;
         }
 
-        // private static Vehicle AirplaneData()
+        private static Vehicle AirplaneData(string registrationNumber, string color, int doors)
+        {
+            int maxSpeed;
+            Console.WriteLine("What is the max speed of this airplane in kilometers?");
+            while (true)
+            {
+                string? inputMaxSpeed = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputMaxSpeed) || !int.TryParse(inputMaxSpeed, out maxSpeed))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                break;
+            }
 
-        // private static Vehicle BicycleData()
+            Airplane airplane = new()
+            {
+                RegistrationNumber = registrationNumber,
+                Color = color,
+                Wheels = 4,
+                Doors = doors,
+                MaxSpeed = maxSpeed,
+            };
+            return airplane;
+        }
+
+        private static Vehicle BicycleData(string registrationNumber, string color, int doors)
+        {
+            bool packageHolder;
+            Console.WriteLine("Does your bicycle have a package holder?");
+            Console.WriteLine("Input 1 for yes - 2 for no");
+            while (true)
+            {
+                string? inputPackageHolder = Console.ReadLine();
+                if (inputPackageHolder == "1")
+                {
+                    packageHolder = true;
+                    break;
+                }
+                if (inputPackageHolder == "2")
+                {
+                    packageHolder = false;
+                    break;
+                }
+                Console.WriteLine("Try again:");
+            }
+            Bicycle bicycle = new()
+            {
+                RegistrationNumber = registrationNumber,
+                Color = color,
+                Wheels = 4,
+                Doors = doors,
+                PackageHolder = packageHolder,
+            };
+            return bicycle;
+        }
 
         private static void filterVehicles()
         {
             Console.Clear();
-
             Vehicle[] vehicles = garage.GetVehicles();
-
             bool empty = true;
 
             foreach (Vehicle vehicle in vehicles)
@@ -211,17 +270,25 @@ namespace Lexicon2026.Exercise_03
                 if (vehicle != null)
                 {
                     empty = false;
-
                     Console.WriteLine($"Type: {vehicle.GetType().Name}");
                     Console.WriteLine($"Registration Number: {vehicle.RegistrationNumber}");
                     Console.WriteLine($"Color: {vehicle.Color}");
                     Console.WriteLine($"Wheels: {vehicle.Wheels}");
+                    Console.WriteLine($"Doors: {vehicle.Doors}");
 
-                    // Show extra info for Car
                     if (vehicle is Car car)
                     {
-                        Console.WriteLine($"Doors: {car.Doors}");
-                        Console.WriteLine($"HorsePower: {car.HorsePower}");
+                        Console.WriteLine($"Horse powers: {car.HorsePower}");
+                    }
+
+                    if (vehicle is Bicycle bicycle)
+                    {
+                        Console.WriteLine($"Package holder: {bicycle.PackageHolder}");
+                    }
+
+                    if (vehicle is Airplane airplane)
+                    {
+                        Console.WriteLine($"Max speed: {airplane.MaxSpeed}");
                     }
 
                     Console.WriteLine("----------------------");

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Lexicon2026.Exercise_03.VehicleTypes
 {
-    internal class Bicycle
+    internal class Bicycle : Vehicle
     {
-        bool PackageHolder { get; set; }
+        public bool PackageHolder { get; set; }
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Lexicon2026.Exercise_03.VehicleTypes
 {
-    internal class Airplane
+    internal class Airplane : Vehicle
     {
-        int MaxSpeed { get; set; }
+        public int MaxSpeed { get; set; }
     }
 }
