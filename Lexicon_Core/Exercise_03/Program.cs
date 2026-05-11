@@ -75,7 +75,8 @@ namespace Lexicon2026.Exercise_03
                     // do stuff
                     break;
                 case 3:
-                    // do stuff
+                    // LookInGarage();
+                    GarageUI();
                     break;
                 default:
                     // exit program
@@ -114,50 +115,86 @@ namespace Lexicon2026.Exercise_03
         {
             if (vehicleType == "Car")
             {
-                string registrationNumber;
-                Console.WriteLine("What is the registration number?");
-                while (true)
-                {
-                    string? input = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(input))
-                    {
-                        Console.WriteLine("Invalid registration number, at least 6 characters, try again");
-                        continue;
-                    }
-                    registrationNumber = input;
-                    if (registrationNumber.Length < 6)
-                    {
-                        Console.WriteLine("Invalid registration number, at least 6 characters, try again");
-                        continue;
-                    }
-                    break;
-                }
-
-                string color;
-                Console.WriteLine("What color does the car have?");
-                while (true)
-                {
-                    string? input = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(input))
-                    {
-                        Console.WriteLine("Invalid color, try again");
-                        continue;
-                    }
-                    color = input;
-                    break;
-                }
-
-                Car car = new()
-                {
-                    RegistrationNumber = registrationNumber,
-                    Color = color,
-                    Wheels = 4
-                };
-                return car;
+                return CarData();
             }
 
             // If other vehicle types are added later, handle them here.
             throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
         }
+
+        private static Vehicle CarData() {
+            string registrationNumber;
+            Console.WriteLine("What is the registration number?");
+            while (true)
+            {
+                string? input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Invalid registration number, at least 6 characters, try again");
+                    continue;
+                }
+                registrationNumber = input;
+                if (registrationNumber.Length < 6)
+                {
+                    Console.WriteLine("Invalid registration number, at least 6 characters, try again");
+                    continue;
+                }
+                break;
+            }
+
+            string color;
+            Console.WriteLine("What color does the car have?");
+            while (true)
+            {
+                string? inputColor = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputColor))
+                {
+                    Console.WriteLine("Invalid color, try again");
+                    continue;
+                }
+                color = inputColor;
+                break;
+            }
+
+            int doors;
+            Console.WriteLine("How many doors does the car have?");
+            while (true)
+            {
+                string? inputDoors = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputDoors) || !int.TryParse(inputDoors, out doors))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                break;
+            }
+
+            int horsePower;
+            Console.WriteLine("How many horsepowers does the car have?");
+            while (true)
+            {
+                string? inputHorsePower = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputHorsePower) || !int.TryParse(inputHorsePower, out horsePower))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                break;
+            }
+
+            Car car = new()
+            {
+                RegistrationNumber = registrationNumber,
+                Color = color,
+                Wheels = 4,
+                Doors = doors,
+                HorsePower = horsePower,
+            };
+            return car;
+        }
+
+        // private static Vehicle AirplaneData()
+
+        // private static Vehicle BicycleData()
     }
 }

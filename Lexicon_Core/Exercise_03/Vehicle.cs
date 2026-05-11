@@ -10,8 +10,8 @@ namespace Lexicon2026.Exercise_03
         public string? Color { get; set; }
         public int Wheels { get; set; }
         public int Doors { get; set; }
-        public int TankSize { get; set; }
-        public string? FuelType { get; set; }
-        public int Weight { get; set; }
+        //public int TankSize { get; set; }
+        //public string? FuelType { get; set; }
+        //public int Weight { get; set; }
     }
 }
