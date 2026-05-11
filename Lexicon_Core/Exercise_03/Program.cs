@@ -1,8 +1,10 @@
-﻿using Lexicon2026.Exercise_03.VehicleTypes;
+﻿using Lexicon2026.Exercise_03.Utils;
+using Lexicon2026.Exercise_03.VehicleTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Reflection.Metadata;
 using System.Text;
 
 namespace Lexicon2026.Exercise_03
@@ -20,24 +22,8 @@ namespace Lexicon2026.Exercise_03
 
         private static int GarageSize()
         {
-            int garageSize;
             Console.WriteLine("How many parking spots do you need in the garage? \nChoose a number between 1 - 1000");
-            while (true)
-            {
-                string? number = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(number) || !int.TryParse(number, out garageSize))
-                {
-                    Console.WriteLine("Invalid number, Choose a number between 1 and 1000:");
-                    continue;
-                }
-                if (garageSize < 1 || garageSize > 1000)
-                {
-                    Console.WriteLine("Choose a number between 1 and 1000:");
-                    continue;
-                }
-                break;
-            }
-            return garageSize;
+            return InputHandler.GetValidatedNumber(1, 1000, "Invalid input, Choose a number between 1 and 1000:");
         }
 
         private static void GarageUI()
@@ -47,22 +33,9 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("1: Park a vehicle");
             Console.WriteLine("2: Take out a vehicle");
             Console.WriteLine("3: Lookup on a vehicle");
-            int userInput;
-            while (true)
-            {
-                string? number = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(number) || !int.TryParse(number, out userInput))
-                {
-                    Console.WriteLine("Invalid number, Choose a number between 1 and 3:");
-                    continue;
-                }
-                if (userInput < 1 || userInput > 3)
-                {
-                    Console.WriteLine("Choose a number between 1 and 3:");
-                    continue;
-                }
-                break;
-            }
+
+            int userInput = InputHandler.GetValidatedNumber(1, 3, "Invalid input, Choose a number between 1 and 3:");
+
             switch (userInput)
             {
                 case 1:
@@ -79,6 +52,9 @@ namespace Lexicon2026.Exercise_03
                     CheckVehicles();
                     GarageUI();
                     break;
+                //case 4:
+                //    FilterVehicles();
+                //    break;
                 default:
                     // exit program
                     break;
@@ -95,31 +71,23 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("4: Motorcycle");
             Console.WriteLine("5: Bus");
             Console.WriteLine("6: Boat");
+
             int max = 6;
-            while (true)
-            {
-                string? number = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(number) || !int.TryParse(number, out int userInput))
-                {
-                    Console.WriteLine($"Invalid number, Choose a number between 1 and {max}:");
-                    continue;
-                }
-                if (userInput < 1 || userInput > max)
-                {
-                    Console.WriteLine($"Choose a number between 1 and {max}:");
-                    continue;
-                }
-                if (userInput == 1) return "Car";
-                if (userInput == 2) return "Airplane";
-                if (userInput == 3) return "Bicycle";
-                if (userInput == 4) return "Motorcycle";
-                if (userInput == 5) return "Bus";
-                if (userInput == 6) return "Boat";
-            }
+            int vehicleChoice = InputHandler.GetValidatedNumber(1, max, $"Invalid inpuut, Choose a number between 1 and {max}:");
+
+            if (vehicleChoice == 1) return "Car";
+            if (vehicleChoice == 2) return "Airplane";
+            if (vehicleChoice == 3) return "Bicycle";
+            if (vehicleChoice == 4) return "Motorcycle";
+            if (vehicleChoice == 5) return "Bus";
+            return "Boat";
         }
 
         private static Vehicle UserVehicleData(string vehicleType)
         {
+            Console.Clear();
+            Console.WriteLine($"Great choice, some questions around your {vehicleType.ToLower()}:");
+
             string registrationNumber;
             Console.WriteLine("What is the registration number?");
             while (true)
@@ -145,7 +113,7 @@ namespace Lexicon2026.Exercise_03
             }
 
             string color;
-            Console.WriteLine("What color does the vehicle have?");
+            Console.WriteLine($"What color does the {vehicleType.ToLower()} have?");
             while (true)
             {
                 string? inputColor = Console.ReadLine();
@@ -159,7 +127,7 @@ namespace Lexicon2026.Exercise_03
             }
 
             int doors;
-            Console.WriteLine("Does the vehicle have doors, how many?");
+            Console.WriteLine($"Does the {vehicleType.ToLower()} have doors, how many? (Enter 0 for no)");
             while (true)
             {
                 string? inputDoors = Console.ReadLine();
