@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lexicon2026.Exercise_03.VehicleTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -8,20 +9,23 @@ namespace Lexicon2026.Exercise_03
 {
     public class Program
     {
+        private static Garage garage = null!;
+
         public static void Main()
         {
-            GarageSize();
+            int garageSize = GarageSize();
+            garage = new Garage(garageSize);
             GarageUI();
         }
 
-        private static void GarageSize()
+        private static int GarageSize()
         {
             int garageSize;
             Console.WriteLine("How many parking spots do you need in the garage? \nChoose a number between 1 - 1000");
             while (true)
             {
                 string? number = Console.ReadLine();
-                if (!int.TryParse(number, out garageSize))
+                if (string.IsNullOrWhiteSpace(number) || !int.TryParse(number, out garageSize))
                 {
                     Console.WriteLine("Invalid number, Choose a number between 1 and 1000:");
                     continue;
@@ -33,7 +37,7 @@ namespace Lexicon2026.Exercise_03
                 }
                 break;
             }
-            Garage garage = new Garage(garageSize);
+            return garageSize;
         }
 
         private static void GarageUI()
@@ -47,7 +51,7 @@ namespace Lexicon2026.Exercise_03
             while (true)
             {
                 string? number = Console.ReadLine();
-                if (!int.TryParse(number, out userInput))
+                if (string.IsNullOrWhiteSpace(number) || !int.TryParse(number, out userInput))
                 {
                     Console.WriteLine("Invalid number, Choose a number between 1 and 3:");
                     continue;
@@ -63,8 +67,9 @@ namespace Lexicon2026.Exercise_03
             {
                 case 1:
                     string vehicleType = UserVehicle();
-                    //string[] vehicleData = UserVehicleData();
-                    //Garage.ParkVehicle();
+                    Vehicle vehicle = UserVehicleData(vehicleType);
+                    garage.ParkVehicle(vehicle);
+                    GarageUI();
                     break;
                 case 2:
                     // do stuff
@@ -85,26 +90,74 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("1: Car");
             Console.WriteLine("2: Airplane");
             Console.WriteLine("3: Bicycle");
-            // more types
-            int userInput;
+            // add more types?
             while (true)
             {
                 string? number = Console.ReadLine();
-                if (!int.TryParse(number, out userInput))
+                if (string.IsNullOrWhiteSpace(number) || !int.TryParse(number, out int userInput))
                 {
-                    Console.WriteLine("Invalid number, Choose a number between 1 and X:"); // X
+                    Console.WriteLine("Invalid number, Choose a number between 1 and 3:"); // X = 3 for now
                     continue;
                 }
-                if (userInput < 1 || userInput > 3) // update 3 
+                if (userInput < 1 || userInput > 3) // update 3 if adding more
                 {
-                    Console.WriteLine("Choose a number between 1 and X:"); // X
+                    Console.WriteLine("Choose a number between 1 and 3:"); // X = 3 for now
                     continue;
                 }
                 if (userInput == 1) return "Car";
                 if (userInput == 2) return "Airplane";
                 if (userInput == 3) return "Bicycle";
-                // more types return
             }
+        }
+
+        private static Vehicle UserVehicleData(string vehicleType)
+        {
+            if (vehicleType == "Car")
+            {
+                string registrationNumber;
+                Console.WriteLine("What is the registration number?");
+                while (true)
+                {
+                    string? input = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(input))
+                    {
+                        Console.WriteLine("Invalid registration number, at least 6 characters, try again");
+                        continue;
+                    }
+                    registrationNumber = input;
+                    if (registrationNumber.Length < 6)
+                    {
+                        Console.WriteLine("Invalid registration number, at least 6 characters, try again");
+                        continue;
+                    }
+                    break;
+                }
+
+                string color;
+                Console.WriteLine("What color does the car have?");
+                while (true)
+                {
+                    string? input = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(input))
+                    {
+                        Console.WriteLine("Invalid color, try again");
+                        continue;
+                    }
+                    color = input;
+                    break;
+                }
+
+                Car car = new()
+                {
+                    RegistrationNumber = registrationNumber,
+                    Color = color,
+                    Wheels = 4
+                };
+                return car;
+            }
+
+            // If other vehicle types are added later, handle them here.
+            throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
         }
     }
 }
