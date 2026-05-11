@@ -396,6 +396,21 @@ namespace Lexicon2026.Exercise_03
                         Console.WriteLine($"Max speed: {airplane.MaxSpeed}");
                     }
 
+                    if (vehicle is Motorcycle motorcycle)
+                    {
+                        Console.WriteLine($"Cylinder volume: {motorcycle.CylinderVolume}");
+                    }
+
+                    if (vehicle is Bus bus)
+                    {
+                        Console.WriteLine($"Passanger seat amount: {bus.Seats}");
+                    }
+
+                    if (vehicle is Boat boat)
+                    {
+                        Console.WriteLine($"Boat length: {boat.Length} meters");
+                    }
+
                     Console.WriteLine("----------------------");
                 }
             }
