@@ -75,7 +75,7 @@ namespace Lexicon2026.Exercise_03
                     // do stuff
                     break;
                 case 3:
-                    // LookInGarage();
+                    filterVehicles();
                     GarageUI();
                     break;
                 default:
@@ -119,6 +119,7 @@ namespace Lexicon2026.Exercise_03
             }
 
             // If other vehicle types are added later, handle them here.
+
             throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
         }
 
@@ -196,5 +197,44 @@ namespace Lexicon2026.Exercise_03
         // private static Vehicle AirplaneData()
 
         // private static Vehicle BicycleData()
+
+        private static void filterVehicles()
+        {
+            Console.Clear();
+
+            Vehicle[] vehicles = garage.GetVehicles();
+
+            bool empty = true;
+
+            foreach (Vehicle vehicle in vehicles)
+            {
+                if (vehicle != null)
+                {
+                    empty = false;
+
+                    Console.WriteLine($"Type: {vehicle.GetType().Name}");
+                    Console.WriteLine($"Registration Number: {vehicle.RegistrationNumber}");
+                    Console.WriteLine($"Color: {vehicle.Color}");
+                    Console.WriteLine($"Wheels: {vehicle.Wheels}");
+
+                    // Show extra info for Car
+                    if (vehicle is Car car)
+                    {
+                        Console.WriteLine($"Doors: {car.Doors}");
+                        Console.WriteLine($"HorsePower: {car.HorsePower}");
+                    }
+
+                    Console.WriteLine("----------------------");
+                }
+            }
+
+            if (empty)
+            {
+                Console.WriteLine("Garage is empty.");
+            }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+        }
     }
 }

@@ -14,7 +14,6 @@ namespace Lexicon2026.Exercise_03
             vehicles = new Vehicle[capacity];
         }
 
-        // method to add vehicle + feedback to user
         public void ParkVehicle(Vehicle vehicle)
         {
             for (int i = 0; i < vehicles.Length; i++)
@@ -25,13 +24,18 @@ namespace Lexicon2026.Exercise_03
                     Console.WriteLine($"\nParked: {vehicle.GetType().Name}");
                     Console.WriteLine("Press any button");
                     Console.ReadKey();
+                    return;
                 }
             }
-
             Console.WriteLine("Garage is full. Cannot park vehicle.");
+            Console.WriteLine("Press any button");
+            Console.ReadKey();
         }
 
-        // method to view all vehicle
+        public Vehicle[] GetVehicles()
+        {
+            return vehicles;
+        }
 
         // method to view vehicle type and amount
 
