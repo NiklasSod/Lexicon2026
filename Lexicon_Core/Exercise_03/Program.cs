@@ -92,7 +92,10 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("1: Car");
             Console.WriteLine("2: Airplane");
             Console.WriteLine("3: Bicycle");
-            int max = 3;
+            Console.WriteLine("4: Motorcycle");
+            Console.WriteLine("5: Bus");
+            Console.WriteLine("6: Boat");
+            int max = 6;
             while (true)
             {
                 string? number = Console.ReadLine();
@@ -109,6 +112,9 @@ namespace Lexicon2026.Exercise_03
                 if (userInput == 1) return "Car";
                 if (userInput == 2) return "Airplane";
                 if (userInput == 3) return "Bicycle";
+                if (userInput == 4) return "Motorcycle";
+                if (userInput == 5) return "Bus";
+                if (userInput == 6) return "Boat";
             }
         }
 
@@ -178,6 +184,21 @@ namespace Lexicon2026.Exercise_03
             if (vehicleType == "Bicycle")
             {
                 return BicycleData(registrationNumber, color, doors);
+            }
+
+            if (vehicleType == "Motorcycle")
+            {
+                return MotorcycleData(registrationNumber, color, doors);
+            }
+
+            if (vehicleType == "Bus")
+            {
+                return BusData(registrationNumber, color, doors);
+            }
+
+            if (vehicleType == "Boat")
+            {
+                return BoatData(registrationNumber, color, doors);
             }
 
             throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
@@ -263,6 +284,84 @@ namespace Lexicon2026.Exercise_03
                 PackageHolder = packageHolder,
             };
             return bicycle;
+        }
+
+        private static Motorcycle MotorcycleData(string registrationNumber, string color, int doors)
+        {
+            int cylinderVolume;
+            Console.WriteLine("What is the cylinder volume of this motorcycle?");
+            while (true)
+            {
+                string? inputCylinderVolume = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputCylinderVolume) || !int.TryParse(inputCylinderVolume, out cylinderVolume))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                break;
+            }
+
+            Motorcycle motorcycle = new()
+            {
+                RegistrationNumber = registrationNumber,
+                Color = color,
+                Wheels = 4,
+                Doors = doors,
+                CylinderVolume = cylinderVolume,
+            };
+            return motorcycle;
+        }
+
+        private static Bus BusData(string registrationNumber, string color, int doors)
+        {
+            int seats;
+            Console.WriteLine("How many passangers can sit in this bus?");
+            while (true)
+            {
+                string? inputSeats = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputSeats) || !int.TryParse(inputSeats, out seats))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                break;
+            }
+
+            Bus bus = new()
+            {
+                RegistrationNumber = registrationNumber,
+                Color = color,
+                Wheels = 4,
+                Doors = doors,
+                Seats = seats,
+            };
+            return bus;
+        }
+
+        private static Boat BoatData(string registrationNumber, string color, int doors)
+        {
+            double length;
+            Console.WriteLine("How long is this boat in meters? \nEx: 4.20 for 4 meters and 20 centimeters");
+            while (true)
+            {
+                string? inputLengt = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputLengt) || !double.TryParse(inputLengt, System.Globalization.CultureInfo.InvariantCulture, out length))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                break;
+            }
+
+            Boat Boat = new()
+            {
+                RegistrationNumber = registrationNumber,
+                Color = color,
+                Wheels = 4,
+                Doors = doors,
+                Length = length
+            };
+            return Boat;
         }
 
         private static void CheckVehicles()
