@@ -392,6 +392,7 @@ namespace Lexicon2026.Exercise_03
             string? registrationNumber;
             while (true)
             {
+                Console.WriteLine("Input 'return' to return to the main menu");
                 string? input = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(input))
                 {
@@ -404,14 +405,19 @@ namespace Lexicon2026.Exercise_03
                     Console.WriteLine("Invalid registration number, at least 6 characters, try again");
                     continue;
                 }
-                break;
+                if (input == "return")
+                {
+                    GarageUI();
+                    return;
+                }
+                if (garage.TakeVehicles(registrationNumber))
+                {
+                    break;
+                }
+                else continue;
             }
-            bool removedVehicle = garage.TakeVehicles(registrationNumber);
-            if (removedVehicle)
-            {
-                Console.WriteLine("Here is your vehicle! Press any key");
-                Console.ReadKey();
-            }
+            Console.WriteLine("Here is your vehicle! Press any key");
+            Console.ReadKey();
         }
     }
 }
