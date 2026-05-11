@@ -39,6 +39,14 @@ namespace Lexicon2026.Exercise_03
             switch (userInput)
             {
                 case 1:
+                    if (garage.CheckAvailableSpot())
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Garage is at full capacity \nPress anything to return to the main menu");
+                        Console.ReadKey();
+                        GarageUI();
+                        break;
+                    }
                     string vehicleType = UserVehicle();
                     Vehicle vehicle = UserVehicleData(vehicleType);
                     garage.ParkVehicle(vehicle);
@@ -88,91 +96,75 @@ namespace Lexicon2026.Exercise_03
             Console.Clear();
             Console.WriteLine($"Great choice, some questions around your {vehicleType.ToLower()}:");
 
-            string registrationNumber;
             Console.WriteLine("What is the registration number?");
-            while (true)
-            {
-                string? input = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(input))
-                {
-                    Console.WriteLine("Invalid registration number, at least 6 characters, try again");
-                    continue;
-                }
-                registrationNumber = input;
-                if (registrationNumber.Length < 6)
-                {
-                    Console.WriteLine("Invalid registration number, at least 6 characters, try again");
-                    continue;
-                }
-                if (garage.CheckUniqueRegNo(registrationNumber))
-                {
-                    Console.WriteLine("Registration number already in garage!");
-                    continue;
-                }
-                break;
-            }
+            int minReg = 6;
+            int maxReg = 30;
+            string registrationNumber = InputHandler.GetValidatedString(
+                garage,
+                minReg, 
+                maxReg, 
+                $"Invalid registration number, at least {minReg} characters (max {maxReg}), try again",
+                true);
 
-            string color;
             Console.WriteLine($"What color does the {vehicleType.ToLower()} have?");
-            while (true)
-            {
-                string? inputColor = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(inputColor))
-                {
-                    Console.WriteLine("Invalid color, try again");
-                    continue;
-                }
-                color = inputColor;
-                break;
-            }
+            int minColor = 2;
+            int maxColor = 24;
+            string color = InputHandler.GetValidatedString(
+                garage,
+                minColor,
+                maxColor,
+                $"Invalid registration number, at least {minColor} characters (max {maxColor}), try again");
 
-            int doors;
             Console.WriteLine($"Does the {vehicleType.ToLower()} have doors, how many? (Enter 0 for no)");
-            while (true)
-            {
-                string? inputDoors = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(inputDoors) || !int.TryParse(inputDoors, out doors))
-                {
-                    Console.WriteLine("Try again:");
-                    continue;
-                }
-                break;
-            }
+            int minDoors = 0;
+            int maxDoors = 100;
+            int doors = InputHandler.GetValidatedNumber(
+                minDoors, 
+                maxDoors, 
+                $"Invalid input, Choose a number between {minDoors} and {maxDoors}:");
+
+            Console.WriteLine($"Does the {vehicleType.ToLower()} have wheels, how many? (Enter 0 for no)");
+            int minWheels = 0;
+            int maxWheels = 100;
+            int wheels = InputHandler.GetValidatedNumber(
+                minWheels,
+                maxWheels,
+                $"Invalid input, Choose a number between {minWheels} and {maxWheels}:");
 
             if (vehicleType == "Car")
             {
-                return CarData(registrationNumber, color, doors);
+                return CarData(registrationNumber, color, doors, wheels);
             }
 
             if (vehicleType == "Airplane")
             {
-                return AirplaneData(registrationNumber, color, doors);
+                return AirplaneData(registrationNumber, color, doors, wheels);
             }
 
             if (vehicleType == "Bicycle")
             {
-                return BicycleData(registrationNumber, color, doors);
+                return BicycleData(registrationNumber, color, doors, wheels);
             }
 
             if (vehicleType == "Motorcycle")
             {
-                return MotorcycleData(registrationNumber, color, doors);
+                return MotorcycleData(registrationNumber, color, doors, wheels);
             }
 
             if (vehicleType == "Bus")
             {
-                return BusData(registrationNumber, color, doors);
+                return BusData(registrationNumber, color, doors, wheels);
             }
 
             if (vehicleType == "Boat")
             {
-                return BoatData(registrationNumber, color, doors);
+                return BoatData(registrationNumber, color, doors, wheels);
             }
 
             throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
         }
 
-        private static Car CarData(string registrationNumber, string color, int doors) {
+        private static Car CarData(string registrationNumber, string color, int doors, int wheels) {
             int horsePower;
             Console.WriteLine("How many horsepowers does the car have?");
             while (true)
@@ -190,14 +182,14 @@ namespace Lexicon2026.Exercise_03
             {
                 RegistrationNumber = registrationNumber,
                 Color = color,
-                Wheels = 4,
+                Wheels = wheels,
                 Doors = doors,
                 HorsePower = horsePower,
             };
             return car;
         }
 
-        private static Airplane AirplaneData(string registrationNumber, string color, int doors)
+        private static Airplane AirplaneData(string registrationNumber, string color, int doors, int wheels)
         {
             int maxSpeed;
             Console.WriteLine("What is the max speed of this airplane in kilometers?");
@@ -216,14 +208,14 @@ namespace Lexicon2026.Exercise_03
             {
                 RegistrationNumber = registrationNumber,
                 Color = color,
-                Wheels = 4,
+                Wheels = wheels,
                 Doors = doors,
                 MaxSpeed = maxSpeed,
             };
             return airplane;
         }
 
-        private static Bicycle BicycleData(string registrationNumber, string color, int doors)
+        private static Bicycle BicycleData(string registrationNumber, string color, int doors, int wheels)
         {
             bool packageHolder;
             Console.WriteLine("Does your bicycle have a package holder?");
@@ -247,14 +239,14 @@ namespace Lexicon2026.Exercise_03
             {
                 RegistrationNumber = registrationNumber,
                 Color = color,
-                Wheels = 4,
+                Wheels = wheels,
                 Doors = doors,
                 PackageHolder = packageHolder,
             };
             return bicycle;
         }
 
-        private static Motorcycle MotorcycleData(string registrationNumber, string color, int doors)
+        private static Motorcycle MotorcycleData(string registrationNumber, string color, int doors, int wheels)
         {
             int cylinderVolume;
             Console.WriteLine("What is the cylinder volume of this motorcycle?");
@@ -273,14 +265,14 @@ namespace Lexicon2026.Exercise_03
             {
                 RegistrationNumber = registrationNumber,
                 Color = color,
-                Wheels = 4,
+                Wheels = wheels,
                 Doors = doors,
                 CylinderVolume = cylinderVolume,
             };
             return motorcycle;
         }
 
-        private static Bus BusData(string registrationNumber, string color, int doors)
+        private static Bus BusData(string registrationNumber, string color, int doors, int wheels)
         {
             int seats;
             Console.WriteLine("How many passangers can sit in this bus?");
@@ -299,14 +291,14 @@ namespace Lexicon2026.Exercise_03
             {
                 RegistrationNumber = registrationNumber,
                 Color = color,
-                Wheels = 4,
+                Wheels = wheels,
                 Doors = doors,
                 Seats = seats,
             };
             return bus;
         }
 
-        private static Boat BoatData(string registrationNumber, string color, int doors)
+        private static Boat BoatData(string registrationNumber, string color, int doors, int wheels)
         {
             double length;
             Console.WriteLine("How long is this boat in meters? \nEx: 4.20 for 4 meters and 20 centimeters");
@@ -325,7 +317,7 @@ namespace Lexicon2026.Exercise_03
             {
                 RegistrationNumber = registrationNumber,
                 Color = color,
-                Wheels = 4,
+                Wheels = wheels,
                 Doors = doors,
                 Length = length
             };
@@ -346,8 +338,8 @@ namespace Lexicon2026.Exercise_03
                     Console.WriteLine($"Type: {vehicle.GetType().Name}");
                     Console.WriteLine($"Registration Number: {vehicle.RegistrationNumber}");
                     Console.WriteLine($"Color: {vehicle.Color}");
-                    Console.WriteLine($"Wheels: {vehicle.Wheels}");
-                    Console.WriteLine($"Doors: {vehicle.Doors}");
+                    if (vehicle.Wheels > 0) Console.WriteLine($"Wheels: {vehicle.Wheels}");
+                    if (vehicle.Doors > 0) Console.WriteLine($"Doors: {vehicle.Doors}");
 
                     if (vehicle is Car car)
                     {

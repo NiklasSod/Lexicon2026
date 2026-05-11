@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Text;
 
 namespace Lexicon2026.Exercise_03.Utils
@@ -26,6 +27,33 @@ namespace Lexicon2026.Exercise_03.Utils
 
                 return number;
             }
+        }
+
+        public static string GetValidatedString(Garage garage, int min, int max, string error, bool checkUniqueRegNo = false)
+        {
+            string userInput;
+            while (true)
+            {
+                string? input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine(error);
+                    continue;
+                }
+                userInput = input;
+                if (userInput.Length < min || userInput.Length > max)
+                {
+                    Console.WriteLine(error);
+                    continue;
+                }
+                if (checkUniqueRegNo && garage.CheckUniqueRegNo(userInput))
+                {
+                    Console.WriteLine("Registration number already in garage!");
+                    continue;
+                }
+                break;
+            }
+            return userInput;
         }
     }
 }

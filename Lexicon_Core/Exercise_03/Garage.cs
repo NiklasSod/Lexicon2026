@@ -8,6 +8,18 @@ namespace Lexicon2026.Exercise_03
     {
         private readonly Vehicle?[] vehicles = new Vehicle[capacity];
 
+        public bool CheckAvailableSpot()
+        {
+            foreach (Vehicle? vehicle in vehicles)
+            {
+                if (vehicle == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void ParkVehicle(Vehicle vehicle)
         {
             for (int i = 0; i < vehicles.Length; i++)
