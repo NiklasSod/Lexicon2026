@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Threading;
 
 namespace Lexicon2026.Exercise_03
 {
@@ -52,11 +53,11 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("1: Park a vehicle");
             Console.WriteLine("2: Take out a vehicle");
             Console.WriteLine("3: Lookup on a vehicle");
-            //Console.WriteLine("4: ???");
+            Console.WriteLine("4: Look for a vehicle based on filter");
             //Console.WriteLine("5: ???");
-            Console.WriteLine("4: Exit program"); // 6
+            Console.WriteLine("5: Exit program"); // 6
 
-            int userInput = InputHandler.GetValidatedNumber(1, 4, "Invalid input, Choose a number between 1 and 4:");
+            int userInput = InputHandler.GetValidatedNumber(1, 5, "Invalid input, Choose a number between 1 and 5:");
 
             switch (userInput)
             {
@@ -73,21 +74,20 @@ namespace Lexicon2026.Exercise_03
                     garage.ParkVehicle(vehicle);
                     return true;
                 case 2:
-                    getOneVehicle();
+                    GetOneVehicle();
                     return true;
                 case 3:
                     CheckVehicles();
                     return true;
-                //case 4:
-                //    FilterVehicles();
-                //    return true;
+                case 4:
+                    FilterVehicles();
+                    return true;
                 //case 5:
                 //    FilterVehiclesOnKey();
                 //    return true;
-                case 4: // 6
+                case 5: // 6
                     return false;
                 default:
-                    // exit program
                     return true;
             }
         }
@@ -349,8 +349,13 @@ namespace Lexicon2026.Exercise_03
 
         private static void CheckVehicles()
         {
+            Vehicle?[] allVehicles = garage.GetVehicles();
+            DisplayVehicles(allVehicles);
+        }
+
+        private static void DisplayVehicles(Vehicle?[] vehicles)
+        {
             Console.Clear();
-            Vehicle?[] vehicles = garage.GetVehicles();
             bool empty = true;
 
             foreach (Vehicle? vehicle in vehicles)
@@ -407,7 +412,7 @@ namespace Lexicon2026.Exercise_03
             Console.ReadKey();
         }
 
-        private static void getOneVehicle()
+        private static void GetOneVehicle()
         {
             Console.Clear();
             Vehicle?[] vehicles = garage.GetVehicles();
@@ -441,6 +446,21 @@ namespace Lexicon2026.Exercise_03
             }
             Console.WriteLine("Here is your vehicle! Press any key");
             Console.ReadKey();
+        }
+
+        private static void FilterVehicles()
+        {
+            Console.Clear();
+            if (!garage.CheckAvailableSpot())
+            {
+                Console.WriteLine("The garage is empty");
+                Console.WriteLine("Returning you to the main menu...");
+                Thread.Sleep(2500);
+                return;
+            }
+                
+            //Vehicle?[] vehicles = garage.GetVehicles();
+            //Console.WriteLine("");
         }
     }
 }
