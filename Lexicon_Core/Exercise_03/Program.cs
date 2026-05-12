@@ -62,7 +62,7 @@ namespace Lexicon2026.Exercise_03
             switch (userInput)
             {
                 case 1:
-                    if (garage.CheckAvailableSpot())
+                    if (!garage.GarageHasAvailableParking())
                     {
                         Console.Clear();
                         Console.WriteLine("Garage is at full capacity \nPress anything to return to the main menu");
@@ -451,7 +451,7 @@ namespace Lexicon2026.Exercise_03
         private static void FilterVehicles()
         {
             Console.Clear();
-            if (garage.CheckAvailableSpot())
+            if (garage.IsGarageEmpty())
             {
                 Console.WriteLine("The garage is empty");
                 Console.WriteLine("Returning you to the main menu...");
@@ -462,7 +462,7 @@ namespace Lexicon2026.Exercise_03
             Vehicle?[] vehicles = garage.GetVehicles();
             Console.WriteLine("What do you want to filter around?");
             Console.WriteLine("1: Vehicle type.\n2: Number of doors.\n3: Number of wheels.");
-            int maxFilter = 3;
+            int maxFilter = 1; // 3
             int userChoice = InputHandler.GetValidatedNumber(1, maxFilter, $"Invalid input, Choose a number between 1 and {maxFilter}:");
             switch (userChoice)
             {
@@ -474,10 +474,10 @@ namespace Lexicon2026.Exercise_03
                     Vehicle?[] filteredByVehicle = garage.FilterVehicleType(userVehicleChoice);
                     DisplayVehicles(filteredByVehicle);
                     break;
-                case 2:
-                //filter doors
-                case 3:
-                    //filter wheels
+                //case 2:
+                ////filter doors
+                //case 3:
+                //    //filter wheels
                 default:
                     break;
             }

@@ -21,11 +21,23 @@ namespace Lexicon2026.Exercise_03
             { 6, "Motorcycle" }
         };
 
-        public bool CheckAvailableSpot()
+        public bool GarageHasAvailableParking()
         {
             foreach (Vehicle? vehicle in vehicles)
             {
                 if (vehicle == null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsGarageEmpty()
+        {
+            foreach (Vehicle? vehicle in vehicles)
+            {
+                if (vehicle != null)
                 {
                     return false;
                 }
