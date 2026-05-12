@@ -104,7 +104,7 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("6: Boat");
 
             int max = 6;
-            int vehicleChoice = InputHandler.GetValidatedNumber(1, max, $"Invalid inpuut, Choose a number between 1 and {max}:");
+            int vehicleChoice = InputHandler.GetValidatedNumber(1, max, $"Invalid input, Choose a number between 1 and {max}:");
 
             if (vehicleChoice == 1) return "Car";
             if (vehicleChoice == 2) return "Airplane";
@@ -451,16 +451,36 @@ namespace Lexicon2026.Exercise_03
         private static void FilterVehicles()
         {
             Console.Clear();
-            if (!garage.CheckAvailableSpot())
+            if (garage.CheckAvailableSpot())
             {
                 Console.WriteLine("The garage is empty");
                 Console.WriteLine("Returning you to the main menu...");
                 Thread.Sleep(2500);
                 return;
             }
-                
-            //Vehicle?[] vehicles = garage.GetVehicles();
-            //Console.WriteLine("");
+
+            Vehicle?[] vehicles = garage.GetVehicles();
+            Console.WriteLine("What do you want to filter around?");
+            Console.WriteLine("1: Vehicle type.\n2: Number of doors.\n3: Number of wheels.");
+            int maxFilter = 3;
+            int userChoice = InputHandler.GetValidatedNumber(1, maxFilter, $"Invalid input, Choose a number between 1 and {maxFilter}:");
+            switch (userChoice)
+            {
+                case 1:
+                    Console.WriteLine("Lets try to see if what you want more information about is here.");
+                    Console.WriteLine("1: Airplane.\n2: Bicycle.\n3: Boat.\n4: Bus.\n5: Car.\n6: Motorcycle.");
+                    int maxVehicle = 6;
+                    int userVehicleChoice = InputHandler.GetValidatedNumber(1, maxVehicle, $"Invalid input, Choose a number between 1 and {maxVehicle}:");
+                    Vehicle?[] filteredByVehicle = garage.FilterVehicleType(userVehicleChoice);
+                    DisplayVehicles(filteredByVehicle);
+                    break;
+                case 2:
+                //filter doors
+                case 3:
+                    //filter wheels
+                default:
+                    break;
+            }
         }
     }
 }

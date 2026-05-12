@@ -11,6 +11,16 @@ namespace Lexicon2026.Exercise_03
     {
         private readonly Vehicle?[] vehicles = new Vehicle[capacity];
 
+        public static readonly Dictionary<int, string> VehicleTypes = new()
+        {
+            { 1, "Airplane" },
+            { 2, "Bicycle" },
+            { 3, "Boat" },
+            { 4, "Bus" },
+            { 5, "Car" },
+            { 6, "Motorcycle" }
+        };
+
         public bool CheckAvailableSpot()
         {
             foreach (Vehicle? vehicle in vehicles)
@@ -183,8 +193,15 @@ namespace Lexicon2026.Exercise_03
             }
         }
 
-        // TODO method? lookup on vehicles with one or more filters, ex: all black vehicles with four tires
+        public Vehicle?[] FilterVehicleType(int vehicleTypeKey)
+        {
+            if (!VehicleTypes.TryGetValue(vehicleTypeKey, out string? typeName))
+            {
+                return [];
+            }
+            return [.. vehicles.Where(v => v != null && v.GetType().Name.Equals(typeName))];
+        }
 
-        // TODO method to view vehicle type and amount
+        // TODO method? lookup on vehicles with one or more filters, ex: all black vehicles with four tires
     }
 }
