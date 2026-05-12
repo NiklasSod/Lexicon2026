@@ -16,6 +16,10 @@ namespace Lexicon2026.Exercise_03
         public static void Main()
         {
             GarageStart();
+            while (GarageUI())
+            {
+                // runs until GarageUI return false
+            }
         }
 
         private static void GarageStart()
@@ -33,7 +37,6 @@ namespace Lexicon2026.Exercise_03
                 garage = new Garage(20);
                 garage.ParkabGarage();
             }
-            GarageUI();
         }
 
         private static int GarageSize()
@@ -42,15 +45,18 @@ namespace Lexicon2026.Exercise_03
             return InputHandler.GetValidatedNumber(1, 1000, "Invalid input, Choose a number between 1 and 1000:");
         }
 
-        private static void GarageUI()
+        private static bool GarageUI()
         {
             Console.Clear();
             Console.WriteLine("Welcome to the garage, select what to do by pressing the corresponding number:\n");
             Console.WriteLine("1: Park a vehicle");
             Console.WriteLine("2: Take out a vehicle");
             Console.WriteLine("3: Lookup on a vehicle");
+            //Console.WriteLine("4: ???");
+            //Console.WriteLine("5: ???");
+            Console.WriteLine("4: Exit program"); // 6
 
-            int userInput = InputHandler.GetValidatedNumber(1, 3, "Invalid input, Choose a number between 1 and 3:");
+            int userInput = InputHandler.GetValidatedNumber(1, 4, "Invalid input, Choose a number between 1 and 4:");
 
             switch (userInput)
             {
@@ -60,28 +66,29 @@ namespace Lexicon2026.Exercise_03
                         Console.Clear();
                         Console.WriteLine("Garage is at full capacity \nPress anything to return to the main menu");
                         Console.ReadKey();
-                        GarageUI();
-                        break;
+                        return true;
                     }
                     string vehicleType = UserVehicle();
                     Vehicle vehicle = UserVehicleData(vehicleType);
                     garage.ParkVehicle(vehicle);
-                    GarageUI();
-                    break;
+                    return true;
                 case 2:
                     getOneVehicle();
-                    GarageUI();
-                    break;
+                    return true;
                 case 3:
                     CheckVehicles();
-                    GarageUI();
-                    break;
+                    return true;
                 //case 4:
                 //    FilterVehicles();
-                //    break;
+                //    return true;
+                //case 5:
+                //    FilterVehiclesOnKey();
+                //    return true;
+                case 4: // 6
+                    return false;
                 default:
                     // exit program
-                    break;
+                    return true;
             }
         }
 
