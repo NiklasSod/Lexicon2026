@@ -214,6 +214,15 @@ namespace Lexicon2026.Exercise_03
             return [.. vehicles.Where(v => v != null && v.GetType().Name.Equals(typeName))];
         }
 
-        // TODO method? lookup on vehicles with one or more filters, ex: all black vehicles with four tires
+        public Vehicle?[] FilterVehicleByKey(int userAmount, string vehicleKey)
+        {
+            return [.. vehicles
+                .Where(v => v != null && (vehicleKey.ToLower() switch
+                {
+                    "doors" => v.Doors == userAmount,
+                    "wheels" => v.Wheels == userAmount,
+                    _ => false
+                }))];
+        }
     }
 }

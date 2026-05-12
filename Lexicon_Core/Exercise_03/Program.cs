@@ -54,8 +54,7 @@ namespace Lexicon2026.Exercise_03
             Console.WriteLine("2: Take out a vehicle");
             Console.WriteLine("3: Lookup on a vehicle");
             Console.WriteLine("4: Look for a vehicle based on filter");
-            //Console.WriteLine("5: ???");
-            Console.WriteLine("5: Exit program"); // 6
+            Console.WriteLine("5: Exit program"); 
 
             int userInput = InputHandler.GetValidatedNumber(1, 5, "Invalid input, Choose a number between 1 and 5:");
 
@@ -82,10 +81,7 @@ namespace Lexicon2026.Exercise_03
                 case 4:
                     FilterVehicles();
                     return true;
-                //case 5:
-                //    FilterVehiclesOnKey();
-                //    return true;
-                case 5: // 6
+                case 5: 
                     return false;
                 default:
                     return true;
@@ -462,22 +458,32 @@ namespace Lexicon2026.Exercise_03
             Vehicle?[] vehicles = garage.GetVehicles();
             Console.WriteLine("What do you want to filter around?");
             Console.WriteLine("1: Vehicle type.\n2: Number of doors.\n3: Number of wheels.");
-            int maxFilter = 1; // 3
+            int maxFilter = 3;
             int userChoice = InputHandler.GetValidatedNumber(1, maxFilter, $"Invalid input, Choose a number between 1 and {maxFilter}:");
+            Console.WriteLine("Lets try to see if what you want more information about is here.");
             switch (userChoice)
             {
                 case 1:
-                    Console.WriteLine("Lets try to see if what you want more information about is here.");
                     Console.WriteLine("1: Airplane.\n2: Bicycle.\n3: Boat.\n4: Bus.\n5: Car.\n6: Motorcycle.");
                     int maxVehicle = 6;
                     int userVehicleChoice = InputHandler.GetValidatedNumber(1, maxVehicle, $"Invalid input, Choose a number between 1 and {maxVehicle}:");
                     Vehicle?[] filteredByVehicle = garage.FilterVehicleType(userVehicleChoice);
                     DisplayVehicles(filteredByVehicle);
                     break;
-                //case 2:
-                ////filter doors
-                //case 3:
-                //    //filter wheels
+                case 2:
+                    Console.WriteLine("How many doors are you filtering for?");
+                    int maxDoors = 100;
+                    int userDoorChoice = InputHandler.GetValidatedNumber(0, maxDoors, $"Invalid input, Choose a number between 1 and {maxDoors}:");
+                    Vehicle?[] filteredByDoor = garage.FilterVehicleByKey(userDoorChoice, "doors");
+                    DisplayVehicles(filteredByDoor);
+                    break;
+                case 3:
+                    Console.WriteLine("How many wheels are you filtering for?");
+                    int maxWheels = 100;
+                    int userWheelChoice = InputHandler.GetValidatedNumber(0, maxWheels, $"Invalid input, Choose a number between 1 and {maxWheels}:");
+                    Vehicle?[] filteredByWheel = garage.FilterVehicleByKey(userWheelChoice, "wheels");
+                    DisplayVehicles(filteredByWheel);
+                    break;
                 default:
                     break;
             }
