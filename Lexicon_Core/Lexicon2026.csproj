@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Exercise_04%2803b%29\" />
     <Folder Include="ScrumAnalysis\" />
   </ItemGroup>
 	
