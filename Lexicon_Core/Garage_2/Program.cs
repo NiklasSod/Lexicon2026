@@ -16,6 +16,7 @@ public class Program
 
     public static void Main()
     {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
         GarageStart();
         while (GarageUI())
         {
@@ -54,7 +55,7 @@ public class Program
         Console.WriteLine("Welcome to the garage, select what to do by pressing the corresponding number:\n");
         Console.WriteLine("1: Park a vehicle");
         Console.WriteLine("2: Take out a vehicle");
-        Console.WriteLine("3: Lookup on a vehicle");
+        Console.WriteLine("3: Look at all vehicles");
         Console.WriteLine("4: Look for a vehicle based on filter");
         Console.WriteLine("5: Exit program");
 
@@ -134,7 +135,7 @@ public class Program
             garage,
             minColor,
             maxColor,
-            $"Invalid registration number, at least {minColor} characters (max {maxColor}), try again");
+            $"Invalid color, at least {minColor} characters (max {maxColor}), try again");
 
         Console.WriteLine($"Does the {vehicleType.ToLower()} have doors, how many? (Enter 0 for no)");
         int minDoors = 0;
@@ -362,42 +363,12 @@ public class Program
             if (vehicle != null)
             {
                 empty = false;
-                Console.WriteLine($"Type: {vehicle.GetType().Name}");
-                Console.WriteLine($"Registration Number: {vehicle.RegistrationNumber}");
-                Console.WriteLine($"Color: {vehicle.Color}");
-                if (vehicle.Wheels > 0) Console.WriteLine($"Wheels: {vehicle.Wheels}");
-                if (vehicle.Doors > 0) Console.WriteLine($"Doors: {vehicle.Doors}");
-
-                if (vehicle is Car car)
-                {
-                    Console.WriteLine($"Horse powers: {car.HorsePower}");
-                }
-
-                if (vehicle is Bicycle bicycle)
-                {
-                    Console.WriteLine($"Package holder: {bicycle.PackageHolder}");
-                }
-
-                if (vehicle is Airplane airplane)
-                {
-                    Console.WriteLine($"Max speed: {airplane.MaxSpeed}");
-                }
-
-                if (vehicle is Motorcycle motorcycle)
-                {
-                    Console.WriteLine($"Cylinder volume: {motorcycle.CylinderVolume}");
-                }
-
-                if (vehicle is Bus bus)
-                {
-                    Console.WriteLine($"Passanger seat amount: {bus.Seats}");
-                }
-
-                if (vehicle is Boat boat)
-                {
-                    Console.WriteLine($"Boat length: {boat.Length} meters");
-                }
-
+                if (vehicle is Car car) Console.WriteLine(car.ToString());
+                if (vehicle is Bicycle bicycle) Console.WriteLine(bicycle.ToString());
+                if (vehicle is Airplane airplane) Console.WriteLine(airplane.ToString());
+                if (vehicle is Motorcycle motorcycle) Console.WriteLine(motorcycle.ToString());
+                if (vehicle is Bus bus) Console.WriteLine(bus.ToString());
+                if (vehicle is Boat boat) Console.WriteLine(boat.ToString());
                 Console.WriteLine("----------------------");
             }
         }

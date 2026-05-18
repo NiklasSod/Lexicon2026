@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Lexicon2026.Garage_2.Utils;
 
@@ -35,6 +36,11 @@ internal class InputHandler
         while (true)
         {
             string? input = Console.ReadLine();
+            if (!checkUniqueRegNo == true && !Regex.IsMatch(input, @"^[a-zA-Z\s-]+$"))
+            {
+                Console.WriteLine("Only add letters in the color selection, try again");
+                continue;
+            }
             if (string.IsNullOrWhiteSpace(input))
             {
                 Console.WriteLine(error);
