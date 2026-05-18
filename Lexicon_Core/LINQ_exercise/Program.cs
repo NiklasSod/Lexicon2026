@@ -23,18 +23,46 @@ namespace Lexicon2026.LINQ_exercise
                 };
             Console.WriteLine("LINQ-ÖVNINGAR MED STUDENTER\n");
 
-            // Where
-            var studentUnder20 = studenter.Where(p => p.Alder < 20);
-            Console.WriteLine("Students under the age of 20:");
-            foreach ( var student in studentUnder20)
+            //// Where
+            //var studentUnder20 = studenter.Where(p => p.Alder < 20);
+            //Console.WriteLine("Students under the age of 20:");
+            //foreach ( var student in studentUnder20)
+            //{
+            //    Console.WriteLine(student.ToString());
+            //}
+            //var studentScoreOver80 = studenter.Where(p => p.Poang > 80);
+            //Console.WriteLine("\nStudents with score above 80:");
+            //foreach ( var student in studentScoreOver80)
+            //{
+            //    Console.WriteLine(student.ToString());
+            //}
+
+            //// Select
+            //var studentName = studenter.Select(p => p.Namn);
+            //Console.WriteLine("Student names:");
+            //foreach (var student in studentName)
+            //{
+            //    Console.WriteLine(student);
+            //}
+            //var studentWithGrade = studenter.Select(p => new { p.Namn, p.Poang });
+            //Console.WriteLine("\nStudents (names and grade):");
+            //foreach (var student in studentWithGrade)
+            //{
+            //    Console.WriteLine($"{student.Namn}: {student.Poang}");
+            //}
+
+            // OrderBy
+           var studentByAge = studenter.OrderBy(p => p.Alder);
+            Console.WriteLine("Students sorted by age:");
+            foreach (var student in studentByAge)
             {
-                Console.WriteLine(student.ToString());
+                Console.WriteLine(student);
             }
-            var studentScoreOver80 = studenter.Where(p => p.Poang > 80);
-            Console.WriteLine("\nStudents with score above 80:");
-            foreach ( var student in studentScoreOver80)
+            var studentsByHighestGrade = studenter.OrderByDescending(p => p.Poang);
+            Console.WriteLine("\nStudents sorted by grade:");
+            foreach (var student in studentsByHighestGrade)
             {
-                Console.WriteLine(student.ToString());
+                Console.WriteLine(student);
             }
         }
     }
