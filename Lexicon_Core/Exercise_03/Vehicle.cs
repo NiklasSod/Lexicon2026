@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lexicon2026.Exercise_03
 {
-    internal class Vehicle
+    internal abstract class Vehicle
     {
         public required string RegistrationNumber { get; set; }
         public string? Color { get; set; }
