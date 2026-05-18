@@ -92,21 +92,67 @@ namespace Lexicon2026.LINQ_exercise
             //Console.WriteLine("\nAmount of students in class A:");
             //Console.WriteLine(studentsInClassA);
 
-            // Take
-            var threeStudents = studenter.Take(3);
-            Console.WriteLine("Three students:");
-            foreach (Student student in threeStudents)
-            {
-                Console.WriteLine(student);
-            }
+            //// Take
+            //var threeStudents = studenter.Take(3);
+            //Console.WriteLine("Three students:");
+            //foreach (Student student in threeStudents)
+            //{
+            //    Console.WriteLine(student);
+            //}
 
-            var bestStudentsByOrder = studenter.OrderByDescending(student => student.Poang);
-            var bestTwoStudents = bestStudentsByOrder.Take(2);
-            Console.WriteLine("\nThe two best students:");
-            foreach (Student student in bestTwoStudents)
-            {
-                Console.WriteLine(student);
-            }
+            //var bestStudentsByOrder = studenter.OrderByDescending(student => student.Poang);
+            //var bestTwoStudents = bestStudentsByOrder.Take(2);
+            //Console.WriteLine("\nThe two best students:");
+            //foreach (Student student in bestTwoStudents)
+            //{
+            //    Console.WriteLine(student);
+            //}
+
+            //// Distinct
+            //var classNames = studenter.Select(p => p.Namn);
+            //var uniqueNames = classNames.Distinct();
+            //Console.WriteLine("Student (unique) names:");
+            //foreach (string name in uniqueNames)
+            //{
+            //    Console.WriteLine(name);
+            //}
+
+            //var classAges = studenter.Select(p => p.Alder);
+            //var uniqueAges = classAges.Distinct();
+            //Console.WriteLine("\nStudent (unique) names:");
+            //foreach (int age in uniqueAges)
+            //{
+            //    Console.WriteLine(age);
+            //}
+
+            //// Any / All
+            //var studentWithFullScore = studenter.Any(p => p.Poang == 100);
+            //Console.WriteLine("Did any student get 100 points?");
+            //Console.WriteLine(studentWithFullScore ? "Yes" : "No");
+
+            //var studentsAbove50Points = studenter.All(p => p.Poang > 50);
+            //Console.WriteLine("\nDid all student get above 50 points?");
+            //Console.WriteLine(studentsAbove50Points ? "Yes" : "No");
+
+            // FirstOrDefault / Last / Single
+            var firstStudentClassB = studenter.FirstOrDefault(p => p.Klass == "B");
+            Console.WriteLine("First student in class B:");
+            Console.WriteLine(firstStudentClassB);
+
+            var lastStudent = studenter.Last();
+            Console.WriteLine("\nLast student in list:");
+            Console.WriteLine(lastStudent);
+
+            int id = 5;
+            var studentWithId = studenter.Single(p => p.Id == id);
+            Console.WriteLine($"\nStudent with id {id}:");
+            Console.WriteLine(studentWithId);
+
+            // GroupBy
+
+
+            // Sum / Average / Min / Max
+
         }
     }
 }
