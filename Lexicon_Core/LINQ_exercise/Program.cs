@@ -134,25 +134,43 @@ namespace Lexicon2026.LINQ_exercise
             //Console.WriteLine("\nDid all student get above 50 points?");
             //Console.WriteLine(studentsAbove50Points ? "Yes" : "No");
 
-            // FirstOrDefault / Last / Single
-            var firstStudentClassB = studenter.FirstOrDefault(p => p.Klass == "B");
-            Console.WriteLine("First student in class B:");
-            Console.WriteLine(firstStudentClassB);
+            //// FirstOrDefault / Last / Single
+            //var firstStudentClassB = studenter.FirstOrDefault(p => p.Klass == "B");
+            //Console.WriteLine("First student in class B:");
+            //Console.WriteLine(firstStudentClassB);
 
-            var lastStudent = studenter.Last();
-            Console.WriteLine("\nLast student in list:");
-            Console.WriteLine(lastStudent);
+            //var lastStudent = studenter.Last();
+            //Console.WriteLine("\nLast student in list:");
+            //Console.WriteLine(lastStudent);
 
-            int id = 5;
-            var studentWithId = studenter.Single(p => p.Id == id);
-            Console.WriteLine($"\nStudent with id {id}:");
-            Console.WriteLine(studentWithId);
+            //int id = 5;
+            //var studentWithId = studenter.Single(p => p.Id == id);
+            //Console.WriteLine($"\nStudent with id {id}:");
+            //Console.WriteLine(studentWithId);
 
-            // GroupBy
-
+            //// GroupBy
+            //var studentsByClass = studenter.GroupBy(p => p.Klass);
+            //foreach ( var group in studentsByClass )
+            //{
+            //    Console.WriteLine($"Klass {group.Key}: ");
+            //    foreach ( var student in group)
+            //    {
+            //        Console.WriteLine($"- {student.Namn}");
+            //    }
+            //}
 
             // Sum / Average / Min / Max
+            var studentsTotalPoints = studenter.Sum(p => p.Poang);
+            Console.WriteLine($"Students total points are: {studentsTotalPoints}");
 
+            var  studentsAveragePoints = studenter.Average(p => p.Poang);
+            Console.WriteLine($"Students average points are: {studentsAveragePoints}");
+
+            var studentWithLowestGrade = studenter.Min(p => p.Poang);
+            Console.WriteLine($"Student with lowest score: {studentWithLowestGrade}");
+
+            var studentWithHighestGrade = studenter.Max(p => p.Poang);
+            Console.WriteLine($"Student with highest score: {studentWithHighestGrade}");
         }
     }
 }
