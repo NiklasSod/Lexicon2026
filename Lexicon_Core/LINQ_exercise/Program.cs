@@ -30,6 +30,7 @@ namespace Lexicon2026.LINQ_exercise
             //{
             //    Console.WriteLine(student.ToString());
             //}
+
             //var studentScoreOver80 = studenter.Where(p => p.Poang > 80);
             //Console.WriteLine("\nStudents with score above 80:");
             //foreach ( var student in studentScoreOver80)
@@ -44,6 +45,7 @@ namespace Lexicon2026.LINQ_exercise
             //{
             //    Console.WriteLine(student);
             //}
+
             //var studentWithGrade = studenter.Select(p => new { p.Namn, p.Poang });
             //Console.WriteLine("\nStudents (names and grade):");
             //foreach (var student in studentWithGrade)
@@ -51,16 +53,57 @@ namespace Lexicon2026.LINQ_exercise
             //    Console.WriteLine($"{student.Namn}: {student.Poang}");
             //}
 
-            // OrderBy
-           var studentByAge = studenter.OrderBy(p => p.Alder);
-            Console.WriteLine("Students sorted by age:");
-            foreach (var student in studentByAge)
+            //// OrderBy
+            //var studentByAge = studenter.OrderBy(p => p.Alder);
+            //Console.WriteLine("Students sorted by age:");
+            //foreach (var student in studentByAge)
+            //{
+            //    Console.WriteLine(student);
+            //}
+
+            //var studentsByHighestGrade = studenter.OrderByDescending(p => p.Poang);
+            //Console.WriteLine("\nStudents sorted by grade:");
+            //foreach (var student in studentsByHighestGrade)
+            //{
+            //    Console.WriteLine(student);
+            //}
+
+            //// OrderBy
+            //var studentByAge = studenter.OrderBy(p => p.Alder);
+            //Console.WriteLine("Students sorted by age:");
+            //foreach (var student in studentByAge)
+            //{
+            //    Console.WriteLine(student);
+            //}
+
+            //var studentsByHighestGrade = studenter.OrderByDescending(p => p.Poang);
+            //Console.WriteLine("\nStudents sorted by grade:");
+            //foreach (var student in studentsByHighestGrade)
+            //{
+            //    Console.WriteLine(student);
+            //}
+
+            //// Count
+            //var studentAmount = studenter.Count();
+            //Console.WriteLine("Amount of students:");
+            //Console.WriteLine(studentAmount);
+
+            //var studentsInClassA = studenter.Count(p => p.Klass == "A");
+            //Console.WriteLine("\nAmount of students in class A:");
+            //Console.WriteLine(studentsInClassA);
+
+            // Take
+            var threeStudents = studenter.Take(3);
+            Console.WriteLine("Three students:");
+            foreach (Student student in threeStudents)
             {
                 Console.WriteLine(student);
             }
-            var studentsByHighestGrade = studenter.OrderByDescending(p => p.Poang);
-            Console.WriteLine("\nStudents sorted by grade:");
-            foreach (var student in studentsByHighestGrade)
+
+            var bestStudentsByOrder = studenter.OrderByDescending(student => student.Poang);
+            var bestTwoStudents = bestStudentsByOrder.Take(2);
+            Console.WriteLine("\nThe two best students:");
+            foreach (Student student in bestTwoStudents)
             {
                 Console.WriteLine(student);
             }
