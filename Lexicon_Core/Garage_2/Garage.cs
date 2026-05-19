@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Lexicon2026.Garage_2;
 
-internal class Garage<T> : IEnumerable<T> where T : Vehicle
+internal class Garage<T> : IGarage<T> where T : Vehicle
 {
     private readonly T?[] vehicles;
 
@@ -25,8 +25,6 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
 
     public IEnumerator<T> GetEnumerator()
     {
-        // Filters out null slots if the garage is not full,
-        // ensuring only actual vehicle instances are yielded.
         foreach (var vehicle in vehicles)
         {
             if (vehicle != null)
@@ -36,7 +34,6 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
         }
     }
 
-    // Required explicit implementation for the non-generic IEnumerable
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
@@ -98,7 +95,7 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
         return false;
     }
 
-    public Vehicle?[] GetVehicles()
+    public T?[] GetVehicles()
     {
         return vehicles;
     }
@@ -240,7 +237,7 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
         }
     }
 
-    public Vehicle?[] FilterVehicleType(int vehicleTypeKey)
+    public T?[] FilterVehicleType(int vehicleTypeKey)
     {
         if (!VehicleTypes.TryGetValue(vehicleTypeKey, out string? typeName))
         {
@@ -249,7 +246,7 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
         return [.. vehicles.Where(v => v != null && v.GetType().Name.Equals(typeName))];
     }
 
-    public Vehicle?[] FilterVehicleByKey(int userAmount, string vehicleKey)
+    public T?[] FilterVehicleByKey(int userAmount, string vehicleKey)
     {
         return [.. vehicles
             .Where(v => v != null && (vehicleKey.ToLower() switch
