@@ -30,7 +30,7 @@ internal class InputHandler
         }
     }
 
-    public static string GetValidatedString(Garage garage, int min, int max, string error, bool checkUniqueRegNo = false)
+    public static string GetValidatedString(Garage<Vehicle> garage, int min, int max, string error, bool checkUniqueRegNo = false)
     {
         string userInput;
         while (true)

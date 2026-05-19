@@ -12,7 +12,7 @@ namespace Lexicon2026.Garage_2;
 
 public class Program
 {
-    private static Garage garage = null!;
+    private static Garage<Vehicle> garage = null!;
 
     public static void Main()
     {
@@ -34,11 +34,11 @@ public class Program
         if (userChoice == 1)
         {
             int garageSize = GarageSize();
-            garage = new Garage(garageSize);
+            garage = new Garage<Vehicle>(garageSize);
         }
         else
         {
-            garage = new Garage(20);
+            garage = new Garage<Vehicle>(20);
             garage.ParkabGarage();
         }
     }

@@ -1,5 +1,7 @@
-﻿using Lexicon2026.Garage_2.VehicleTypes;
+﻿using Lexicon2026.Exercise_03;
+using Lexicon2026.Garage_2.VehicleTypes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Drawing;
@@ -7,9 +9,38 @@ using System.Text;
 
 namespace Lexicon2026.Garage_2;
 
-internal class Garage(int capacity)
+internal class Garage<T> : IEnumerable<T> where T : Vehicle
 {
-    private readonly Vehicle?[] vehicles = new Vehicle[capacity];
+    private readonly T?[] vehicles;
+
+    public Garage(int capacity)
+    {
+        if (capacity <= 0)
+        {
+            throw new ArgumentException("Capacity must be greater than zero.");
+        }
+
+        vehicles = new T[capacity];
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        // Filters out null slots if the garage is not full,
+        // ensuring only actual vehicle instances are yielded.
+        foreach (var vehicle in vehicles)
+        {
+            if (vehicle != null)
+            {
+                yield return vehicle;
+            }
+        }
+    }
+
+    // Required explicit implementation for the non-generic IEnumerable
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 
     public static readonly Dictionary<int, string> VehicleTypes = new()
     {
@@ -45,22 +76,26 @@ internal class Garage(int capacity)
         return true;
     }
 
-    public void ParkVehicle(Vehicle vehicle)
+    public bool ParkVehicle(T vehicle)
     {
+        if (vehicle == null)
+        {
+            Console.WriteLine("Invalid vehicle data.");
+            return false;
+        }
+
         for (int i = 0; i < vehicles.Length; i++)
         {
             if (vehicles[i] == null)
             {
                 vehicles[i] = vehicle;
                 Console.WriteLine($"\nParked: {vehicle.GetType().Name}");
-                Console.WriteLine("Press any button");
-                Console.ReadKey();
-                return;
+                return true;
             }
         }
+
         Console.WriteLine("Garage is full. Cannot park vehicle.");
-        Console.WriteLine("Press any button");
-        Console.ReadKey();
+        return false;
     }
 
     public Vehicle?[] GetVehicles()
@@ -189,12 +224,11 @@ internal class Garage(int capacity)
 
         foreach (Vehicle vehicle in startingVehicles)
         {
-            AddVehicle(vehicle);
+            AddVehicle((T)vehicle);
         }
-
     }
 
-    private void AddVehicle(Vehicle vehicle)
+    private void AddVehicle(T vehicle)
     {
         for (int i = 0; i < vehicles.Length; i++)
         {
