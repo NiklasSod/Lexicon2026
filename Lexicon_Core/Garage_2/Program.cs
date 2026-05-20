@@ -59,7 +59,7 @@ public class Program
                 handler.ParkVehicle(vehicle);
                 return true;
             case 2:
-                GetOneVehicle();
+                ui.RemoveVehicleByRegistration(handler);
                 return true;
             case 3:
                 CheckVehicles();
@@ -107,18 +107,7 @@ public class Program
 
     private static Car CarData(string registrationNumber, string color, int doors, int wheels)
     {
-        int horsePower;
-        Console.WriteLine("How many horsepowers does the car have?");
-        while (true)
-        {
-            string? inputHorsePower = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(inputHorsePower) || !int.TryParse(inputHorsePower, out horsePower))
-            {
-                Console.WriteLine("Try again:");
-                continue;
-            }
-            break;
-        }
+        int horsePower = ui.FinishBuildCarUI();
 
         Car car = new()
         {
@@ -133,18 +122,7 @@ public class Program
 
     private static Airplane AirplaneData(string registrationNumber, string color, int doors, int wheels)
     {
-        int maxSpeed;
-        Console.WriteLine("What is the max speed of this airplane in kilometers?");
-        while (true)
-        {
-            string? inputMaxSpeed = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(inputMaxSpeed) || !int.TryParse(inputMaxSpeed, out maxSpeed))
-            {
-                Console.WriteLine("Try again:");
-                continue;
-            }
-            break;
-        }
+        int maxSpeed = ui.FinishBuildAirplaneUI();
 
         Airplane airplane = new()
         {
@@ -159,24 +137,8 @@ public class Program
 
     private static Bicycle BicycleData(string registrationNumber, string color, int doors, int wheels)
     {
-        bool packageHolder;
-        Console.WriteLine("Does your bicycle have a package holder?");
-        Console.WriteLine("Input 1 for yes - 2 for no");
-        while (true)
-        {
-            string? inputPackageHolder = Console.ReadLine();
-            if (inputPackageHolder == "1")
-            {
-                packageHolder = true;
-                break;
-            }
-            if (inputPackageHolder == "2")
-            {
-                packageHolder = false;
-                break;
-            }
-            Console.WriteLine("Try again:");
-        }
+        bool packageHolder = ui.FinishBuildBicycleUI();
+
         Bicycle bicycle = new()
         {
             RegistrationNumber = registrationNumber,
@@ -190,18 +152,7 @@ public class Program
 
     private static Motorcycle MotorcycleData(string registrationNumber, string color, int doors, int wheels)
     {
-        int cylinderVolume;
-        Console.WriteLine("What is the cylinder volume of this motorcycle?");
-        while (true)
-        {
-            string? inputCylinderVolume = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(inputCylinderVolume) || !int.TryParse(inputCylinderVolume, out cylinderVolume))
-            {
-                Console.WriteLine("Try again:");
-                continue;
-            }
-            break;
-        }
+        int cylinderVolume = ui.FinishBuildMotorcycleUI();
 
         Motorcycle motorcycle = new()
         {
@@ -216,18 +167,7 @@ public class Program
 
     private static Bus BusData(string registrationNumber, string color, int doors, int wheels)
     {
-        int seats;
-        Console.WriteLine("How many passangers can sit in this bus?");
-        while (true)
-        {
-            string? inputSeats = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(inputSeats) || !int.TryParse(inputSeats, out seats))
-            {
-                Console.WriteLine("Try again:");
-                continue;
-            }
-            break;
-        }
+        int seats = ui.FinishBuildBusUI();
 
         Bus bus = new()
         {
@@ -242,18 +182,7 @@ public class Program
 
     private static Boat BoatData(string registrationNumber, string color, int doors, int wheels)
     {
-        double length;
-        Console.WriteLine("How long is this boat in meters? \nEx: 4.20 for 4 meters and 20 centimeters");
-        while (true)
-        {
-            string? inputLengt = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(inputLengt) || !double.TryParse(inputLengt, System.Globalization.CultureInfo.InvariantCulture, out length))
-            {
-                Console.WriteLine("Try again:");
-                continue;
-            }
-            break;
-        }
+        double length = ui.FinishBuildBoatUI();
 
         Boat Boat = new()
         {
@@ -298,42 +227,6 @@ public class Program
         }
 
         Console.WriteLine("Press any key to continue...");
-        Console.ReadKey();
-    }
-
-    private static void GetOneVehicle()
-    {
-        Console.Clear();
-        Vehicle?[] vehicles = handler.GetAllVehicles();
-        Console.WriteLine("Whats the registration number?");
-        string? registrationNumber;
-        while (true)
-        {
-            Console.WriteLine("Input 'return' to return to the main menu");
-            string? input = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                Console.WriteLine("Invalid registration number, try again");
-                continue;
-            }
-            registrationNumber = input;
-            if (registrationNumber.Length < 6)
-            {
-                Console.WriteLine("Invalid registration number, at least 6 characters, try again");
-                continue;
-            }
-            if (input == "return")
-            {
-                GarageUI();
-                return;
-            }
-            if (handler.RemoveVehicle(registrationNumber))
-            {
-                break;
-            }
-            else continue;
-        }
-        Console.WriteLine("Here is your vehicle! Press any key");
         Console.ReadKey();
     }
 

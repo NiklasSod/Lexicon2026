@@ -13,5 +13,12 @@ namespace Lexicon2026.Garage_2.UIs
         void ShowGarageFullMessage();
         int UserVehicleSelection();
         (string reg, string color, int doors, int wheels) UserVehicleDataSelection(string vehicleType, Handler handler);
+        int FinishBuildCarUI();
+        int FinishBuildAirplaneUI();
+        bool FinishBuildBicycleUI();
+        int FinishBuildMotorcycleUI();
+        int FinishBuildBusUI();
+        double FinishBuildBoatUI();
+        void RemoveVehicleByRegistration(Handler handler);
     }
 }

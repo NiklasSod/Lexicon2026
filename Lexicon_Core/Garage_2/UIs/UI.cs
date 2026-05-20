@@ -100,5 +100,134 @@ namespace Lexicon2026.Garage_2.UIs
 
             return (registrationNumber, color, doors, wheels);
         }
+
+        public int FinishBuildCarUI()
+        {
+            Console.WriteLine("How many horsepowers does the car have?");
+            while (true)
+            {
+                string? inputHorsePower = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputHorsePower) || !int.TryParse(inputHorsePower, out int horsePower))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                return horsePower;
+            }
+        }
+
+        public int FinishBuildAirplaneUI()
+        {
+            Console.WriteLine("What is the max speed of this airplane in kilometers?");
+            while (true)
+            {
+                string? inputMaxSpeed = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputMaxSpeed) || !int.TryParse(inputMaxSpeed, out int maxSpeed))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                return maxSpeed;
+            }
+        }
+
+        public bool FinishBuildBicycleUI()
+        {
+            Console.WriteLine("Does your bicycle have a package holder?");
+            Console.WriteLine("Input 1 for yes - 2 for no");
+            while (true)
+            {
+                string? inputPackageHolder = Console.ReadLine();
+                if (inputPackageHolder == "1")
+                {
+                    return true;
+                }
+                if (inputPackageHolder == "2")
+                {
+                    return false;
+                }
+                Console.WriteLine("Try again:");
+            }
+        }
+
+        public int FinishBuildMotorcycleUI()
+        {
+            Console.WriteLine("What is the cylinder volume of this motorcycle?");
+            while (true)
+            {
+                string? inputCylinderVolume = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputCylinderVolume) || !int.TryParse(inputCylinderVolume, out int cylinderVolume))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                return cylinderVolume;
+            }
+        }
+
+        public int FinishBuildBusUI()
+        {
+            Console.WriteLine("How many passangers can sit in this bus?");
+            while (true)
+            {
+                string? inputSeats = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputSeats) || !int.TryParse(inputSeats, out int seats))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                return seats;
+            }
+        }
+
+        public double FinishBuildBoatUI()
+        {
+            Console.WriteLine("How long is this boat in meters? \nEx: 4.20 for 4 meters and 20 centimeters");
+            while (true)
+            {
+                string? inputLengt = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(inputLengt) || !double.TryParse(inputLengt, System.Globalization.CultureInfo.InvariantCulture, out double length))
+                {
+                    Console.WriteLine("Try again:");
+                    continue;
+                }
+                return length;
+            }
+        }
+
+        public void RemoveVehicleByRegistration(Handler handler)
+        {
+            Console.Clear();
+            Console.WriteLine("Whats the registration number?");
+            string? registrationNumber;
+            while (true)
+            {
+                Console.WriteLine("Input 'return' to return to the main menu");
+                string? input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Invalid registration number, try again");
+                    continue;
+                }
+                registrationNumber = input;
+                if (registrationNumber.Length < 6)
+                {
+                    Console.WriteLine("Invalid registration number, at least 6 characters, try again");
+                    continue;
+                }
+                if (input == "return")
+                {
+                    UIGarageUI();
+                    return;
+                }
+                if (handler.RemoveVehicle(registrationNumber))
+                {
+                    break;
+                }
+                else continue;
+            }
+            Console.WriteLine("Here is your vehicle! Press any key");
+            Console.ReadKey();
+        }
     }
 }
