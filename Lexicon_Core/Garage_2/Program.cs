@@ -241,7 +241,6 @@ public class Program
             return;
         }
 
-        Vehicle?[] vehicles = handler.GetAllVehicles();
         Console.WriteLine("What do you want to filter around?");
         Console.WriteLine("1: Vehicle type.\n2: Number of doors.\n3: Number of wheels.");
         int maxFilter = 3;
