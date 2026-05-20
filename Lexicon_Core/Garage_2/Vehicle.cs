@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace Lexicon2026.Garage_2;
 
-internal abstract class Vehicle : IVehicle
+public abstract class Vehicle : IVehicle
 {
     public required string RegistrationNumber { get; set; }
     public required string Color { get; set; }

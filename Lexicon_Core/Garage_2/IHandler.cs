@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Lexicon2026.Garage_2;
 
 namespace Lexicon2026.Garage_2
 {
     public interface IHandler
     {
-        //// Setup
-        //void CreateGarage(int capacity);
-        //void SeedDefaultVehicles();
+        // Setup and State
+        void InitializeGarage(int capacity);
+        void SeedDefaultGarage();
+        bool IsGarageFull();
+        bool IsGarageEmpty();
 
-        //// Core actions
-        //string ParkVehicle(Vehicle vehicle);
-        //string RemoveVehicle(string registrationNumber);
+        // Core Operations
+        bool ParkVehicle(Vehicle vehicle);
+        bool RemoveVehicle(string registrationNumber);
+        bool RegistrationNumberExists(string registrationNumber);
 
-        //// List and Filter actions
-        //IEnumerable<string> ListAllVehicles();
-        //IEnumerable<string> FilterByVehicleType(int typeKey);
-        //IEnumerable<string> FilterByAttributes(int amount, string attributeKey);
+        // Queries and Formatting (Decoupling UI from Domain Objects)
+        Vehicle?[] GetAllVehicles();
+        Vehicle?[] FilterByVehicleType(int vehicleTypeKey);
+        Vehicle?[] FilterVehicleByKey(int userAmount, string vehicleKey);
     }
 }

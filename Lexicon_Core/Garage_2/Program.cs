@@ -12,7 +12,7 @@ namespace Lexicon2026.Garage_2;
 
 public class Program
 {
-    private static Garage<Vehicle> garage = null!;
+    private static readonly Handler handler = new Handler();
 
     public static void Main()
     {
@@ -34,12 +34,12 @@ public class Program
         if (userChoice == 1)
         {
             int garageSize = GarageSize();
-            garage = new Garage<Vehicle>(garageSize);
+            handler.InitializeGarage(garageSize);
         }
         else
         {
-            garage = new Garage<Vehicle>(20);
-            garage.ParkabGarage();
+            handler.InitializeGarage(20);
+            handler.SeedDefaultGarage();
         }
     }
 
@@ -64,7 +64,7 @@ public class Program
         switch (userInput)
         {
             case 1:
-                if (!garage.GarageHasAvailableParking())
+                if (handler.IsGarageFull())
                 {
                     Console.Clear();
                     Console.WriteLine("Garage is at full capacity \nPress anything to return to the main menu");
@@ -73,7 +73,7 @@ public class Program
                 }
                 string vehicleType = UserVehicle();
                 Vehicle vehicle = UserVehicleData(vehicleType);
-                garage.ParkVehicle(vehicle);
+                handler.ParkVehicle(vehicle);
                 return true;
             case 2:
                 GetOneVehicle();
@@ -122,7 +122,7 @@ public class Program
         int minReg = 6;
         int maxReg = 30;
         string registrationNumber = InputHandler.GetValidatedString(
-            garage,
+            handler,
             minReg,
             maxReg,
             $"Invalid registration number, at least {minReg} characters (max {maxReg}), try again",
@@ -132,7 +132,7 @@ public class Program
         int minColor = 2;
         int maxColor = 24;
         string color = InputHandler.GetValidatedString(
-            garage,
+            handler,
             minColor,
             maxColor,
             $"Invalid color, at least {minColor} characters (max {maxColor}), try again");
@@ -349,7 +349,7 @@ public class Program
 
     private static void CheckVehicles()
     {
-        Vehicle?[] allVehicles = garage.GetVehicles();
+        Vehicle?[] allVehicles = handler.GetAllVehicles();
         DisplayVehicles(allVehicles);
     }
 
@@ -385,7 +385,7 @@ public class Program
     private static void GetOneVehicle()
     {
         Console.Clear();
-        Vehicle?[] vehicles = garage.GetVehicles();
+        Vehicle?[] vehicles = handler.GetAllVehicles();
         Console.WriteLine("Whats the registration number?");
         string? registrationNumber;
         while (true)
@@ -408,7 +408,7 @@ public class Program
                 GarageUI();
                 return;
             }
-            if (garage.TakeVehicles(registrationNumber))
+            if (handler.RemoveVehicle(registrationNumber))
             {
                 break;
             }
@@ -421,7 +421,7 @@ public class Program
     private static void FilterVehicles()
     {
         Console.Clear();
-        if (garage.IsGarageEmpty())
+        if (handler.IsGarageEmpty())
         {
             Console.WriteLine("The garage is empty");
             Console.WriteLine("Returning you to the main menu...");
@@ -429,7 +429,7 @@ public class Program
             return;
         }
 
-        Vehicle?[] vehicles = garage.GetVehicles();
+        Vehicle?[] vehicles = handler.GetAllVehicles();
         Console.WriteLine("What do you want to filter around?");
         Console.WriteLine("1: Vehicle type.\n2: Number of doors.\n3: Number of wheels.");
         int maxFilter = 3;
@@ -441,21 +441,21 @@ public class Program
                 Console.WriteLine("1: Airplane.\n2: Bicycle.\n3: Boat.\n4: Bus.\n5: Car.\n6: Motorcycle.");
                 int maxVehicle = 6;
                 int userVehicleChoice = InputHandler.GetValidatedNumber(1, maxVehicle, $"Invalid input, Choose a number between 1 and {maxVehicle}:");
-                Vehicle?[] filteredByVehicle = garage.FilterVehicleType(userVehicleChoice);
+                Vehicle?[] filteredByVehicle = handler.FilterByVehicleType(userVehicleChoice);
                 DisplayVehicles(filteredByVehicle);
                 break;
             case 2:
                 Console.WriteLine("How many doors are you filtering for?");
                 int maxDoors = 100;
                 int userDoorChoice = InputHandler.GetValidatedNumber(0, maxDoors, $"Invalid input, Choose a number between 1 and {maxDoors}:");
-                Vehicle?[] filteredByDoor = garage.FilterVehicleByKey(userDoorChoice, "doors");
+                Vehicle?[] filteredByDoor = handler.FilterVehicleByKey(userDoorChoice, "doors");
                 DisplayVehicles(filteredByDoor);
                 break;
             case 3:
                 Console.WriteLine("How many wheels are you filtering for?");
                 int maxWheels = 100;
                 int userWheelChoice = InputHandler.GetValidatedNumber(0, maxWheels, $"Invalid input, Choose a number between 1 and {maxWheels}:");
-                Vehicle?[] filteredByWheel = garage.FilterVehicleByKey(userWheelChoice, "wheels");
+                Vehicle?[] filteredByWheel = handler.FilterVehicleByKey(userWheelChoice, "wheels");
                 DisplayVehicles(filteredByWheel);
                 break;
             default:

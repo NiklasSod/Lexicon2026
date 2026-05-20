@@ -30,7 +30,7 @@ internal class InputHandler
         }
     }
 
-    public static string GetValidatedString(Garage<Vehicle> garage, int min, int max, string error, bool checkUniqueRegNo = false)
+    public static string GetValidatedString(Handler handler, int min, int max, string error, bool checkUniqueRegNo = false)
     {
         string userInput;
         while (true)
@@ -52,7 +52,7 @@ internal class InputHandler
                 Console.WriteLine(error);
                 continue;
             }
-            if (checkUniqueRegNo && garage.CheckUniqueRegNo(userInput))
+            if (checkUniqueRegNo && handler.RegistrationNumberExists(userInput))
             {
                 Console.WriteLine("Registration number already in garage!");
                 continue;
