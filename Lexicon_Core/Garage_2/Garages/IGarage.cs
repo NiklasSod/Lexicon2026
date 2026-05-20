@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Lexicon2026.Garage_2.VehicleTypes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lexicon2026.Garage_2
+namespace Lexicon2026.Garage_2.Garages
 {
     internal interface IGarage<T> : IEnumerable<T> where T : Vehicle
     {

@@ -1,10 +1,9 @@
-﻿using Lexicon2026.Garage_2.VehicleTypes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Lexicon2026.Garage_2;
+namespace Lexicon2026.Garage_2.VehicleTypes;
 
 public abstract class Vehicle : IVehicle
 {

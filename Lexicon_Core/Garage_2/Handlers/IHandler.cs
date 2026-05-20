@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Lexicon2026.Garage_2.VehicleTypes;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Lexicon2026.Garage_2;
 
-namespace Lexicon2026.Garage_2
+namespace Lexicon2026.Garage_2.Handlers
 {
     public interface IHandler
     {

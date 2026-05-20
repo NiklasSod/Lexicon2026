@@ -1,10 +1,9 @@
-﻿using Lexicon2026.Exercise_03;
-using Lexicon2026.Garage_2.VehicleTypes;
+﻿using Lexicon2026.Garage_2.VehicleTypes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lexicon2026.Garage_2
+namespace Lexicon2026.Garage_2.Handlers
 {
     public class Handler : IHandler
     {

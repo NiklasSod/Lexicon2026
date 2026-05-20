@@ -1,13 +1,11 @@
-﻿using Lexicon2026.Exercise_03;
-using Lexicon2026.Garage_2.VehicleTypes;
+﻿using Lexicon2026.Garage_2.VehicleTypes;
+using Lexicon2026.Garage_2.Garages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Text;
-
-namespace Lexicon2026.Garage_2;
 
 internal class Garage<T> : IGarage<T> where T : Vehicle
 {
