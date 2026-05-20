@@ -1,6 +1,7 @@
 ﻿using Lexicon2026.Garage_2.Utils;
 using Lexicon2026.Garage_2.VehicleTypes;
 using Lexicon2026.Garage_2.Handlers;
+using Lexicon2026.Garage_2.UIs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace Lexicon2026.Garage_2;
 public class Program
 {
     private static readonly Handler handler = new Handler();
+    private static readonly UI ui = new UI();
 
     public static void Main()
     {
@@ -27,14 +29,10 @@ public class Program
 
     private static void GarageStart()
     {
-        Console.WriteLine("Do you want to build a garage or come to a half full one with 10 free spots left?");
-        Console.WriteLine("1: I build it from scratch!");
-        Console.WriteLine("2: Let me see the existing one.");
-        int userChoice = InputHandler.GetValidatedNumber(1, 2, "Invalid input, Choose a number between 1 and 2:");
-        Console.Clear();
+        int userChoice = ui.UIGarageStart();
         if (userChoice == 1)
         {
-            int garageSize = GarageSize();
+            int garageSize = ui.GarageSize();
             handler.InitializeGarage(garageSize);
         }
         else
@@ -44,32 +42,16 @@ public class Program
         }
     }
 
-    private static int GarageSize()
-    {
-        Console.WriteLine("How many parking spots do you need in the garage? \nChoose a number between 1 - 1000");
-        return InputHandler.GetValidatedNumber(1, 1000, "Invalid input, Choose a number between 1 and 1000:");
-    }
-
     private static bool GarageUI()
     {
-        Console.Clear();
-        Console.WriteLine("Welcome to the garage, select what to do by pressing the corresponding number:\n");
-        Console.WriteLine("1: Park a vehicle");
-        Console.WriteLine("2: Take out a vehicle");
-        Console.WriteLine("3: Look at all vehicles");
-        Console.WriteLine("4: Look for a vehicle based on filter");
-        Console.WriteLine("5: Exit program");
-
-        int userInput = InputHandler.GetValidatedNumber(1, 5, "Invalid input, Choose a number between 1 and 5:");
+        int userInput = ui.UIGarageUI();
 
         switch (userInput)
         {
             case 1:
                 if (handler.IsGarageFull())
                 {
-                    Console.Clear();
-                    Console.WriteLine("Garage is at full capacity \nPress anything to return to the main menu");
-                    Console.ReadKey();
+                    ui.ShowGarageFullMessage();
                     return true;
                 }
                 string vehicleType = UserVehicle();
@@ -94,17 +76,7 @@ public class Program
 
     private static string UserVehicle()
     {
-        Console.Clear();
-        Console.WriteLine("What vehicle type do you park?\n");
-        Console.WriteLine("1: Car");
-        Console.WriteLine("2: Airplane");
-        Console.WriteLine("3: Bicycle");
-        Console.WriteLine("4: Motorcycle");
-        Console.WriteLine("5: Bus");
-        Console.WriteLine("6: Boat");
-
-        int max = 6;
-        int vehicleChoice = InputHandler.GetValidatedNumber(1, max, $"Invalid input, Choose a number between 1 and {max}:");
+        int vehicleChoice = ui.UserVehicleSelection();
 
         if (vehicleChoice == 1) return "Car";
         if (vehicleChoice == 2) return "Airplane";
@@ -116,73 +88,19 @@ public class Program
 
     private static Vehicle UserVehicleData(string vehicleType)
     {
-        Console.Clear();
-        Console.WriteLine($"Great choice, some questions around your {vehicleType.ToLower()}:");
+        (string registrationNumber, string color, int doors, int wheels) = ui.UserVehicleDataSelection(vehicleType, handler);
 
-        Console.WriteLine("What is the registration number?");
-        int minReg = 6;
-        int maxReg = 30;
-        string registrationNumber = InputHandler.GetValidatedString(
-            handler,
-            minReg,
-            maxReg,
-            $"Invalid registration number, at least {minReg} characters (max {maxReg}), try again",
-            true);
+        if (vehicleType == "Car") return CarData(registrationNumber, color, doors, wheels);
 
-        Console.WriteLine($"What color does the {vehicleType.ToLower()} have?");
-        int minColor = 2;
-        int maxColor = 24;
-        string color = InputHandler.GetValidatedString(
-            handler,
-            minColor,
-            maxColor,
-            $"Invalid color, at least {minColor} characters (max {maxColor}), try again");
+        if (vehicleType == "Airplane") return AirplaneData(registrationNumber, color, doors, wheels);
 
-        Console.WriteLine($"Does the {vehicleType.ToLower()} have doors, how many? (Enter 0 for no)");
-        int minDoors = 0;
-        int maxDoors = 100;
-        int doors = InputHandler.GetValidatedNumber(
-            minDoors,
-            maxDoors,
-            $"Invalid input, Choose a number between {minDoors} and {maxDoors}:");
+        if (vehicleType == "Bicycle") return BicycleData(registrationNumber, color, doors, wheels);
 
-        Console.WriteLine($"Does the {vehicleType.ToLower()} have wheels, how many? (Enter 0 for no)");
-        int minWheels = 0;
-        int maxWheels = 100;
-        int wheels = InputHandler.GetValidatedNumber(
-            minWheels,
-            maxWheels,
-            $"Invalid input, Choose a number between {minWheels} and {maxWheels}:");
+        if (vehicleType == "Motorcycle") return MotorcycleData(registrationNumber, color, doors, wheels);
 
-        if (vehicleType == "Car")
-        {
-            return CarData(registrationNumber, color, doors, wheels);
-        }
+        if (vehicleType == "Bus") return BusData(registrationNumber, color, doors, wheels);
 
-        if (vehicleType == "Airplane")
-        {
-            return AirplaneData(registrationNumber, color, doors, wheels);
-        }
-
-        if (vehicleType == "Bicycle")
-        {
-            return BicycleData(registrationNumber, color, doors, wheels);
-        }
-
-        if (vehicleType == "Motorcycle")
-        {
-            return MotorcycleData(registrationNumber, color, doors, wheels);
-        }
-
-        if (vehicleType == "Bus")
-        {
-            return BusData(registrationNumber, color, doors, wheels);
-        }
-
-        if (vehicleType == "Boat")
-        {
-            return BoatData(registrationNumber, color, doors, wheels);
-        }
+        if (vehicleType == "Boat") return BoatData(registrationNumber, color, doors, wheels);
 
         throw new NotSupportedException($"Vehicle type '{vehicleType}' is not supported.");
     }
