@@ -39,7 +39,7 @@ namespace Lexicon2026.Garage_2.Handlers
 
         public Vehicle?[] GetAllVehicles()
         {
-            return _garage?.GetVehicles() ?? [];
+            return _garage?.GetVehicles().ToArray() ?? [];
         }
 
         public Vehicle?[] FilterByVehicleType(int vehicleTypeKey)

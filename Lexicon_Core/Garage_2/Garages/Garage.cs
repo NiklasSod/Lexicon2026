@@ -49,26 +49,12 @@ internal class Garage<T> : IGarage<T> where T : Vehicle
 
     public bool GarageHasAvailableParking()
     {
-        foreach (Vehicle? vehicle in vehicles)
-        {
-            if (vehicle == null)
-            {
-                return true;
-            }
-        }
-        return false;
+        return this.Count() < vehicles.Length;
     }
 
     public bool IsGarageEmpty()
     {
-        foreach (Vehicle? vehicle in vehicles)
-        {
-            if (vehicle != null)
-            {
-                return false;
-            }
-        }
-        return true;
+        return !this.Any();
     }
 
     public bool ParkVehicle(T vehicle)
@@ -93,9 +79,9 @@ internal class Garage<T> : IGarage<T> where T : Vehicle
         return false;
     }
 
-    public T?[] GetVehicles()
+    public IEnumerable<T> GetVehicles()
     {
-        return vehicles;
+        return [.. this];
     }
 
     public bool CheckUniqueRegNo(string registrationNumber)

@@ -16,7 +16,7 @@ namespace Lexicon2026.Garage_2.Garages
         bool TakeVehicles(string registrationNumber);
 
         // Queries & Data Retrieval
-        T?[] GetVehicles();
+        IEnumerable<T> GetVehicles();
         bool CheckUniqueRegNo(string registrationNumber);
         T?[] FilterVehicleType(int vehicleTypeKey);
         T?[] FilterVehicleByKey(int userAmount, string vehicleKey);
