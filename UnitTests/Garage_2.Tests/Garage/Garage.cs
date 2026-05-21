@@ -9,7 +9,7 @@ namespace UnitTests.Garage_2.Tests.Garage
 	public class GarageTests
 	{
 		[Fact]
-		public void WhenCapacityIsZero_ShouldThrowArgumentException()
+		public void WhenGarageCapacityIsZero_ThrowArgumentException()
 		{
 			var exception = Assert.Throws<ArgumentException>(() => new Garage<Vehicle>(0));
 

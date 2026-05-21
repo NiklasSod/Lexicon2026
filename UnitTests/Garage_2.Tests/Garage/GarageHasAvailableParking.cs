@@ -8,7 +8,7 @@ namespace UnitTests.Garage_2.Tests.Garage
     public class GarageHasAvailableParkingTests
     {
         [Fact]
-        public void ParkingPossible_WhenGarageHasAvailableParking()
+        public void ParkingIsPossible_WhenGarageHasAvailableParking_ReturnsTrue()
         {
             var garage = new Garage<Vehicle>(1);
             bool hasParking = garage.GarageHasAvailableParking();
@@ -17,7 +17,7 @@ namespace UnitTests.Garage_2.Tests.Garage
         }
 
         [Fact]
-        public void ParkingNotPossible_WhenGarageHasNoAvailableParking()
+        public void ParkingIsPossible_WhenGarageHasNoAvailableParking_RetrunsFalse()
         {
             var garage = new Garage<Vehicle>(1);
             Vehicle bicycle = new Bicycle
