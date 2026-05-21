@@ -7,11 +7,12 @@ namespace UnitTests.Garage_2.Tests.Garage
 {
     public class IsGarageEmptyTests
     {
+        private readonly Garage<Vehicle> _garage = new Garage<Vehicle>(1);
+
         [Fact]
         public void GarageIsEmpty_WhenNoVehiclesAreParked()
         {
-            var garage = new Garage<Vehicle>(1);
-            bool GarageIsEmpty = garage.IsGarageEmpty();
+            bool GarageIsEmpty = _garage.IsGarageEmpty();
 
             Assert.True(GarageIsEmpty);
         }
@@ -19,7 +20,6 @@ namespace UnitTests.Garage_2.Tests.Garage
         [Fact]
         public void GarageIsEmpty_WhenGarageHasAnyVehicle()
         {
-            var garage = new Garage<Vehicle>(1);
             Vehicle bicycle = new Bicycle
             {
                 RegistrationNumber = "CR56472",
@@ -29,8 +29,8 @@ namespace UnitTests.Garage_2.Tests.Garage
                 PackageHolder = false,
             };
 
-            garage.ParkVehicle(bicycle);
-            bool GarageIsEmpty = garage.IsGarageEmpty();
+            _garage.ParkVehicle(bicycle);
+            bool GarageIsEmpty = _garage.IsGarageEmpty();
 
             Assert.False(GarageIsEmpty);
         }

@@ -7,20 +7,22 @@ namespace UnitTests.Garage_2.Tests.Garage
 {
     public class TakeVehiclesTests
     {
+        private readonly Garage<Vehicle> _garage = new Garage<Vehicle>(1);
+
+        private readonly Vehicle _bicycle = new Bicycle
+        {
+            RegistrationNumber = "CR56472",
+            Color = "Red",
+            Wheels = 2,
+            Doors = 0,
+            PackageHolder = false,
+        };
+
         [Fact]
         public void RemoveVehicle_WhenInGarage()
         {
-            var garage = new Garage<Vehicle>(1);
-            Vehicle bicycle = new Bicycle
-            {
-                RegistrationNumber = "CR56472",
-                Color = "Red",
-                Wheels = 2,
-                Doors = 0,
-                PackageHolder = false,
-            };
-            garage.ParkVehicle(bicycle);
-            bool removeVehicle = garage.TakeVehicles("CR56472");
+            _garage.ParkVehicle(_bicycle);
+            bool removeVehicle = _garage.TakeVehicles("CR56472");
 
             Assert.True(removeVehicle);
         }
@@ -28,45 +30,23 @@ namespace UnitTests.Garage_2.Tests.Garage
         [Fact]
         public void RemoveVehicle_WhenNotInGarage()
         {
-            var garage = new Garage<Vehicle>(1);
-            bool removeVehicle = garage.TakeVehicles("CR56472");
-
+            bool removeVehicle = _garage.TakeVehicles("CR56472");
             Assert.False(removeVehicle);
         }
 
         [Fact]
         public void RemoveWrongVehicle_WhenOtherVehiclesInGarage()
         {
-            var garage = new Garage<Vehicle>(1);
-            Vehicle bicycle = new Bicycle
-            {
-                RegistrationNumber = "CR56472",
-                Color = "Red",
-                Wheels = 2,
-                Doors = 0,
-                PackageHolder = false,
-            };
-            garage.ParkVehicle(bicycle);
-            bool removeVehicle = garage.TakeVehicles("BIL123");
-
+            _garage.ParkVehicle(_bicycle);
+            bool removeVehicle = _garage.TakeVehicles("BIL123");
             Assert.False(removeVehicle);
         }
 
         [Fact]
         public void RemoveVehicleNoRegNo_WhenVehicleInGarage()
         {
-            var garage = new Garage<Vehicle>(1);
-            Vehicle bicycle = new Bicycle
-            {
-                RegistrationNumber = "CR56472",
-                Color = "Red",
-                Wheels = 2,
-                Doors = 0,
-                PackageHolder = false,
-            };
-            garage.ParkVehicle(bicycle);
-            bool removeVehicle = garage.TakeVehicles("");
-
+            _garage.ParkVehicle(_bicycle);
+            bool removeVehicle = _garage.TakeVehicles("");
             Assert.False(removeVehicle);
         }
     }

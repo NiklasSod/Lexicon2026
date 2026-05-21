@@ -7,12 +7,13 @@ namespace UnitTests.Garage_2.Tests.Garage
 {
     public class ParkabGarageTests
     {
+        private readonly Garage<Vehicle> _garage = new Garage<Vehicle>(10);
+
         [Fact]
         public void ParkabGarage_ShouldAddTenVehiclesToTheGarage()
         {
-            var garage = new Garage<Vehicle>(10);
-            garage.ParkabGarage();
-            var vehicles = garage.GetVehicles().ToArray();
+            _garage.ParkabGarage();
+            var vehicles = _garage.GetVehicles().ToArray();
 
             Assert.Equal(10, vehicles.Length);
         }
@@ -20,10 +21,9 @@ namespace UnitTests.Garage_2.Tests.Garage
         [Fact]
         public void ParkabGarage_ShouldMakeGarageFullWhenAddingAllParking()
         {
-            var garage = new Garage<Vehicle>(10);
-            garage.ParkabGarage();
+            _garage.ParkabGarage();
 
-            Assert.False(garage.GarageHasAvailableParking());
+            Assert.False(_garage.GarageHasAvailableParking());
         }
     }
 }
