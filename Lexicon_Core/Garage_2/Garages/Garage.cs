@@ -65,14 +65,13 @@ internal class Garage<T> : IGarage<T> where T : Vehicle
             return false;
         }
 
-        for (int i = 0; i < vehicles.Length; i++)
+        int emptyIndex = Array.IndexOf(vehicles, null);
+
+        if (emptyIndex != -1)
         {
-            if (vehicles[i] == null)
-            {
-                vehicles[i] = vehicle;
-                Console.WriteLine($"\nParked: {vehicle.GetType().Name}");
-                return true;
-            }
+            vehicles[emptyIndex] = vehicle;
+            Console.WriteLine($"\nParked: {vehicle.GetType().Name}");
+            return true;
         }
 
         Console.WriteLine("Garage is full. Cannot park vehicle.");
@@ -86,32 +85,20 @@ internal class Garage<T> : IGarage<T> where T : Vehicle
 
     public bool CheckUniqueRegNo(string registrationNumber)
     {
-        foreach (Vehicle? vehicle in vehicles)
-        {
-            if (vehicle != null && vehicle.RegistrationNumber.Equals(
-                registrationNumber,
-                StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-        }
-        return false;
+        return this.Any(p => p.RegistrationNumber.Equals(
+            registrationNumber, 
+            StringComparison.OrdinalIgnoreCase));
     }
 
     public bool TakeVehicles(string registrationNumber)
     {
-        for (int i = 0; i < vehicles.Length; i++)
+        int index = Array.FindIndex(vehicles, v =>
+        v != null && v.RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase));
+        if (index != -1)
         {
-            Vehicle? vehicle = vehicles[i];
-            if (vehicle != null && vehicle.RegistrationNumber.Equals(
-                registrationNumber,
-                StringComparison.OrdinalIgnoreCase))
-            {
-                vehicles[i] = null;
-
-                Console.WriteLine("\nVehicle removed from garage.");
-                return true;
-            }
+            vehicles[index] = null;
+            Console.WriteLine("\nVehicle removed from garage.");
+            return true;
         }
         Console.WriteLine("Vehicle not found.");
         return false;
@@ -211,14 +198,12 @@ internal class Garage<T> : IGarage<T> where T : Vehicle
 
     private void AddVehicle(T vehicle)
     {
-        for (int i = 0; i < vehicles.Length; i++)
+        int index = Array.FindIndex(vehicles, v => v == null);
+        if (index == -1)
         {
-            if (vehicles[i] == null)
-            {
-                vehicles[i] = vehicle;
-                return;
-            }
+            vehicles[index] = vehicle;
         }
+        return;
     }
 
     public T?[] FilterVehicleType(int vehicleTypeKey)
