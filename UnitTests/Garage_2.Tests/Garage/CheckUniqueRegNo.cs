@@ -5,10 +5,10 @@ using Lexicon2026.Garage_2.VehicleTypes;
 
 namespace UnitTests.Garage_2.Tests.Garage
 {
-    public class ParkVehicleTests
+    public class CheckUniqueRegNoTests
     {
         [Fact]
-        public void ParkVehicle_WhenGarageIsAvailable()
+        public void RegNoFound_WhenGarageHasCorrectVehicle()
         {
             var garage = new Garage<Vehicle>(1);
             Vehicle bicycle = new Bicycle
@@ -18,47 +18,40 @@ namespace UnitTests.Garage_2.Tests.Garage
                 Wheels = 2,
                 Doors = 0,
                 PackageHolder = false,
-            };
-            bool vehicleParked = garage.ParkVehicle(bicycle);
-
-            Assert.True(vehicleParked);
-        }
-
-        [Fact]
-        public void ParkNull_WhenGarageIsAvailable()
-        {
-            var garage = new Garage<Vehicle>(1);
-
-            bool nullParked = garage.ParkVehicle(null!);
-
-            Assert.False(nullParked);
-        }
-
-        [Fact]
-        public void ParkVehicle_WhenGarageIsFull()
-        {
-            var garage = new Garage<Vehicle>(1);
-            Vehicle bicycle = new Bicycle
-            {
-                RegistrationNumber = "CR56472",
-                Color = "Red",
-                Wheels = 2,
-                Doors = 0,
-                PackageHolder = false,
-            };
-            Vehicle car = new Car
-            {
-                RegistrationNumber = "BIL456",
-                Color = "Green",
-                Wheels = 4,
-                Doors = 4,
-                HorsePower = 125,
             };
 
             garage.ParkVehicle(bicycle);
-            bool isParked = garage.ParkVehicle(car);
+            bool foundVehicle = garage.CheckUniqueRegNo("CR56472");
 
-            Assert.False(isParked);
+            Assert.True(foundVehicle);
+        }
+
+        [Fact]
+        public void RegNoNotFound_WhenNotInGarage()
+        {
+            var garage = new Garage<Vehicle>(1);
+            bool foundVehicle = garage.CheckUniqueRegNo("CR56472");
+
+            Assert.False(foundVehicle);
+        }
+
+        [Fact]
+        public void NoInputRegNo_WhenInGarage()
+        {
+            var garage = new Garage<Vehicle>(1);
+            Vehicle bicycle = new Bicycle
+            {
+                RegistrationNumber = "CR56472",
+                Color = "Red",
+                Wheels = 2,
+                Doors = 0,
+                PackageHolder = false,
+            };
+
+            garage.ParkVehicle(bicycle);
+            bool foundVehicle = garage.CheckUniqueRegNo("");
+
+            Assert.False(foundVehicle);
         }
     }
 }

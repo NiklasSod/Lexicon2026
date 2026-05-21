@@ -192,18 +192,8 @@ internal class Garage<T> : IGarage<T> where T : Vehicle
 
         foreach (Vehicle vehicle in startingVehicles)
         {
-            AddVehicle((T)vehicle);
+            ParkVehicle((T)vehicle);
         }
-    }
-
-    private void AddVehicle(T vehicle)
-    {
-        int index = Array.FindIndex(vehicles, v => v == null);
-        if (index == -1)
-        {
-            vehicles[index] = vehicle;
-        }
-        return;
     }
 
     public T?[] FilterVehicleType(int vehicleTypeKey)

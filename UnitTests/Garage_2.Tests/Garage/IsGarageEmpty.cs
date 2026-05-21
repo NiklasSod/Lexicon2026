@@ -8,7 +8,7 @@ namespace UnitTests.Garage_2.Tests.Garage
     public class IsGarageEmptyTests
     {
         [Fact]
-        public void GarageIsEmpty_WhenNoVehiclesAreParked_ReturnsTrue()
+        public void GarageIsEmpty_WhenNoVehiclesAreParked()
         {
             var garage = new Garage<Vehicle>(1);
             bool GarageIsEmpty = garage.IsGarageEmpty();
@@ -17,7 +17,7 @@ namespace UnitTests.Garage_2.Tests.Garage
         }
 
         [Fact]
-        public void GarageIsEmpty_WhenGarageHasAnyVehicle_ReturnsFalse()
+        public void GarageIsEmpty_WhenGarageHasAnyVehicle()
         {
             var garage = new Garage<Vehicle>(1);
             Vehicle bicycle = new Bicycle

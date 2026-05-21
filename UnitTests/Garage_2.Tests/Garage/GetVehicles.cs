@@ -8,7 +8,7 @@ namespace UnitTests.Garage_2.Tests.Garage
     public class GetVehiclesTests
     {
         [Fact]
-        public void ListOfVehicle_WhenNothingIsParked_ReturnsEmptyArray()
+        public void ListOfVehicle_WhenNothingIsParked()
         {
             var garage = new Garage<Vehicle>(5);
 
@@ -18,7 +18,7 @@ namespace UnitTests.Garage_2.Tests.Garage
         }
 
         [Fact]
-        public void ListOfVehicle_WhenVehicleIsParked_ReturnsArray()
+        public void ListOfVehicle_WhenVehicleIsParked()
         {
             var garage = new Garage<Vehicle>(5);
             Vehicle bicycle = new Bicycle
@@ -38,7 +38,7 @@ namespace UnitTests.Garage_2.Tests.Garage
         }
 
         [Fact]
-        public void ListOfVehicles_WhenVehiclesAreParked_ReturnsArray()
+        public void ListOfVehicles_WhenVehiclesAreParked()
         {
             var garage = new Garage<Vehicle>(5);
             Vehicle bicycle = new Bicycle
