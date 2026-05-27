@@ -8,4 +8,4 @@
 //Lexicon2026.Exercise_03.Program.Main();
 //Lexicon2026.Garage_2.Program.Main();
 //Lexicon2026.LINQ_exercise.Program.Main();
-Lexicon2026.Exercise_08.Exercise_2.Program.Main();
+Lexicon2026.Exercise_08.Exercise_3.Publisher.Main();
